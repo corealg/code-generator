@@ -1,0 +1,61 @@
+<?php
+
+namespace App\Services;
+
+use Illuminate\Support\Facades\Storage;
+
+class ServiceMakerService
+{
+    protected $outputDirectory;
+    protected $template;
+    protected $configurations;
+
+    public function __construct($config)
+    {
+        $this->outputDirectory = $config["outputDirectory"];
+        $this->configurations = $config["configurations"];
+
+        $this->template = file_get_contents(public_path("templates/service.text"));
+    }
+
+    public function make()
+    {
+        $body_array = [];
+
+        foreach($this->configurations["table"]["columns"] as $columnName => $property){
+
+            if(empty($property["nullable"]) || $property["nullable"] === false){
+                $body_array[] = 
+                "
+        ".'$'."{$this->configurations["model"]["variable"]}->{$columnName} = ".'$'."data['{$columnName}'];
+                ";
+            }else{
+
+            $body_array[] = 
+            "
+        if(isset(".'$'."data['{$columnName}'])){
+            ".'$'."{$this->configurations["model"]["variable"]}->{$columnName} = ".'$'."data['{$columnName}'];
+        }
+            ";
+            }
+        }
+
+        $BODY = implode("\n",$body_array);
+
+        $payload = [
+            "[CLASS_NAME]" => $this->configurations["service"]["name"],
+            "[MODEL_NAME]" => $this->configurations["model"]["name"],
+            "[MODEL_VARIABLE_NAME]" => $this->configurations["model"]["variable"],
+            "[CREATE_UPDATE_BODY]" => $BODY
+        ];
+
+        $search = array_keys($payload);
+        $replace = array_values($payload);
+
+        $output = str_replace($search, $replace, $this->template);
+
+        Storage::put("{$this->outputDirectory}/{$this->configurations['service']['name']}.php", $output);
+
+        return true;
+    }
+}

@@ -1,0 +1,91 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Services\[SERVICE_NAME];
+use Illuminate\Http\Request;
+
+class [CONTROLLER_NAME] extends Controller
+{
+    protected $[SERVICE_VARIABLE_NAME];
+
+    public function __construct()
+    {
+        $this->[SERVICE_VARIABLE_NAME] = new [SERVICE_NAME]();
+    }
+
+    public function index(Request $request)
+    {
+        $data = $request->all();
+        $users = $this->[SERVICE_VARIABLE_NAME]->lists($data);
+
+        $search = $request->search;
+
+        return view("[VIEW_FOLDER].index", compact(["users", "search"]));
+    }
+
+    public function create(Request $request)
+    {
+        return view("[VIEW_FOLDER].create");
+    }
+
+    public function edit(Request $request, $id)
+    {
+        $user = $this->[SERVICE_VARIABLE_NAME]->getById($id);
+        return view("[VIEW_FOLDER].edit", compact(["user"]));
+    }
+
+    public function save([CREATE_FORM_REQUEST] $request)
+    {
+        $validatedData = $request->all();
+
+        $user = $this->[SERVICE_VARIABLE_NAME]->createOrUpdate($validatedData);
+
+        if(is_null($user) === false){
+            $message = message("Operation succeed.");
+        }else{
+            $message = message("Operation failed.", "error");
+        }
+
+        session()->flash("message", $message);
+        return redirect()->back();
+    }
+
+    public function update([UPDATE_FORM_REQUEST] $request)
+    {
+        $validatedData = $request->all();
+
+        $user = $this->[SERVICE_VARIABLE_NAME]->createOrUpdate($validatedData);
+
+        if(is_null($user) === false){
+            $message = message("Operation succeed.");
+        }else{
+            $message = message("Operation failed.", "error");
+        }
+
+        session()->flash("message", $message);
+        return redirect()->back();
+    }
+    
+    public function view(Request $request, $id)
+    {
+        $user = $this->[SERVICE_VARIABLE_NAME]->getById($id);
+        return view("[VIEW_FOLDER].view", compact(["user"]));
+    }
+
+    public function delete(Request $request, $id)
+    {
+        $user = $this->[SERVICE_VARIABLE_NAME]->getById($id);
+
+        $response = $this->[SERVICE_VARIABLE_NAME]->delete($user);
+        
+        if($response === true){
+            $message = message("Operation succeed.");
+        }else{
+            $message = message("Operation failed.", "error");
+        }
+
+        session()->flash("message", $message);
+        return redirect()->back();
+    }
+}

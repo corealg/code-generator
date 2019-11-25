@@ -1,0 +1,86 @@
+<?php
+
+namespace App\Services;
+
+use App\[MODEL_NAME];
+use App\Services\ErrorNotifierService;
+use App\Services\SettingService;
+
+class [CLASS_NAME]
+{
+    protected $errorNotifier;
+    protected $settingService;
+
+    public $paginatedList = true;
+
+    public function __construct()
+    {
+        $this->errorNotifier = new ErrorNotifierService();
+        $this->settingService = new SettingService();
+    }
+
+    public function lists($data = null)
+    {
+        $search_query = [];
+
+        $item_per_page = $this->settingService->get("item_per_page", 25);
+        $order = $this->settingService->get("data_order", "desc");
+
+        $query = [MODEL_NAME]::query();
+
+        // if(isset($data["search"])){
+
+        //     $search_query = [
+        //         "search" => $data["search"]
+        //     ];
+
+        //     $query->where(function($q) use($data){
+        //         $q->orWhere("name", "LIKE", "%".$data["search"]."%");
+        //     });
+        // }
+
+        $query->orderBy('id', $order);
+
+        if ($this->paginatedList === true) {
+            $[MODEL_VARIABLE_NAME]s = $query->paginate($item_per_page)->appends($search_query);
+            $[MODEL_VARIABLE_NAME]s->pagination_summary = get_pagination_summary($[MODEL_VARIABLE_NAME]s);
+        } else {
+            $[MODEL_VARIABLE_NAME]s = $query->get();
+        }
+
+        return $[MODEL_VARIABLE_NAME]s;
+    }
+
+    public function updateOrCreate($data)
+    {
+        $user_id = auth()->user()->id;
+
+        if(!empty($data["id"])){
+            // update
+
+            $[MODEL_VARIABLE_NAME] = [MODEL_NAME]::whereId($data["id"])->first();
+            $[MODEL_VARIABLE_NAME]->updated_by = $user_id;
+
+        }else{
+            //create
+
+            $[MODEL_VARIABLE_NAME] = new [MODEL_NAME]();
+            $[MODEL_VARIABLE_NAME]->created_by = $user_id;
+        }
+
+        [CREATE_UPDATE_BODY]
+
+        return $[MODEL_VARIABLE_NAME]->save() ? $[MODEL_VARIABLE_NAME] : null;
+    }
+
+    public function getById($id)
+    {
+        return [MODEL_NAME]::find($id);
+    }
+
+    public function delete($[MODEL_VARIABLE_NAME])
+    {
+        $[MODEL_VARIABLE_NAME] = $[MODEL_VARIABLE_NAME]->delete();
+        return $[MODEL_VARIABLE_NAME];
+    }
+}

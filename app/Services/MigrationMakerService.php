@@ -1,0 +1,77 @@
+<?php
+
+namespace App\Services;
+
+use Illuminate\Support\Facades\Storage;
+
+class MigrationMakerService
+{
+    protected $outputDirectory;
+    protected $template;
+    protected $configurations;
+
+    public function __construct($config)
+    {
+        $this->outputDirectory = $config["outputDirectory"];
+        $this->configurations = $config["configurations"];
+
+        $this->template = file_get_contents(public_path("templates/migration.text"));
+    }
+
+    public function make()
+    {
+        $body_array = [];
+
+        foreach($this->configurations["table"]["columns"] as $columnName => $property){
+
+            $length = "";
+            
+            if(!empty($property["length"])){
+                $length = ", {$property['length']}";
+            }
+
+            $statement = '$'."table->{$property['type']}('{$columnName}'{$length})";
+
+            if(isset($property["nullable"]) && $property["nullable"] === true){
+                $statement .= "->nullable()";
+            }
+
+            if(isset($property["unique"]) && $property["unique"] === true){
+                $statement .= "->unique()";
+            }
+
+            if(!empty($property["default"])){
+                $statement .= "->default({$property['default']})";
+            }
+
+            if(isset($property["index"]) && $property["index"] === true){
+                $statement .= "->index()";
+            }
+
+            $statement .= ";";
+
+            $body_array[] = $statement;
+        }
+
+        $BODY = implode("\n",$body_array);
+
+        $payload = [
+            "[CLASS_NAME]" => "Create{$this->configurations['model']['name']}Table",
+            "[TABLE_NAME]" => $this->configurations["table"]["name"],
+            "[BODY]" => $BODY
+        ];
+
+        $search = array_keys($payload);
+        $replace = array_values($payload);
+
+        $output = str_replace($search, $replace, $this->template);
+
+        $now = now()->format("Y_m_d_his");
+
+        $migrationName = "{$now}_create_{$this->configurations['table']['name']}_table.php";
+
+        Storage::put("{$this->outputDirectory}/{$migrationName}", $output);
+
+        return true;
+    }
+}

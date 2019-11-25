@@ -1,0 +1,82 @@
+@extends('layouts.master')
+
+@section("page_title") Division @endsection
+
+@section("content_header") Division @endsection
+
+@section('content')
+<div class="row" id="basic-table">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Division' List ({{ $divisions->count() }})</h5>
+                <div class="heading-elements">
+                    <a href="{{url('division/create')}}" class="btn btn-danger mr-1 mb-1"><i class="bx bx-plus"></i> Create New</a>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Sl.</th>
+                                    <th>Name</th>
+                                    <th>Detail</th>
+                                    <th>Created At</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $i = 1;
+                                @endphp
+                                @forelse($divisions as $division)
+                                <tr>
+                                    <td>{{ $i }}</td>
+                                    <td>{{ $division->name }}</td>
+                                    <td>{{ $division->detail }}</td>
+                                    <td>{{ Parser::parseDate($division->created_at) }}</td>
+                                    <td class="text-center">
+                                        @can('edit', $division)
+                                            <a href="{{url('division/edit')}}/{{ $division->id }}" class="btn btn-icon btn-success glow mr-1 mb-1"><i class="bx bx-edit-alt"></i></a>
+                                        @else
+                                            <a href="#" class="btn btn-icon btn-success glow mr-1 mb-1 disabled"><i class="bx bx-edit-alt"></i></a>
+                                        @endcan
+
+                                        @can('delete', $division)
+                                            <a href="#" class="btn btn-icon btn-danger alert-dialog glow mr-1 mb-1" data-id="{{ $division->id }}" data-action="division/delete" data-message="Are you sure, You want to remove this division?"><i class="bx bx-trash-alt"></i></a>
+                                        @else
+                                            <a href="#" class="btn btn-icon btn-danger glow mr-1 mb-1 disabled"><i class="bx bx-trash-alt"></i></a>
+                                        @endcan
+                                    </td>
+                                </tr>
+                                @php
+                                    $i++;
+                                @endphp
+                                @empty
+                                    <tr>
+                                        <td colspan="4">No Records </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="4">
+                                        @if(!empty($divisions->pagination_summary))
+                                            <span class="label label-primary">{{ $divisions->pagination_summary }}</span>
+                                        @endif
+                                    </td>
+                                    <td colspan="5">
+                                        <div class="pull-right">{{ $divisions->links() }}</div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
