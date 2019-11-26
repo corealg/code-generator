@@ -7,6 +7,7 @@ use App\Services\MigrationMakerService;
 use App\Services\ModelMakerService;
 use App\Services\ServiceMakerService;
 use App\Services\ViewMakerService;
+use App\Services\WebRouteMakerService;
 use Illuminate\Console\Command;
 
 class CodeGenerator extends Command
@@ -55,21 +56,24 @@ class CodeGenerator extends Command
             "configurations" => $configurationArray
         ];
 
-        // $migrationMaker = new MigrationMakerService($argument);
-        // $migrationMaker->make();
+        $migrationMaker = new MigrationMakerService($argument);
+        $migrationMaker->make();
 
-        // $serviceMaker = new ServiceMakerService($argument);
-        // $serviceMaker->make();
+        $serviceMaker = new ServiceMakerService($argument);
+        $serviceMaker->make();
 
-        // $modelMaker = new ModelMakerService($argument);
-        // $modelMaker->make();
+        $modelMaker = new ModelMakerService($argument);
+        $modelMaker->make();
 
-        // $controllerMaker = new ControllerMakerService($argument);
-        // $controllerMaker->make();
+        $controllerMaker = new ControllerMakerService($argument);
+        $controllerMaker->make();
 
         $viewMaker = new ViewMakerService($argument);
         $viewMaker->make();
-        
+
+        $webRouteMaker = new WebRouteMakerService($argument);
+        $webRouteMaker->make();
+
         $this->info("DONE!");
     }
 }

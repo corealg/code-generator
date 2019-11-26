@@ -42,13 +42,13 @@ class [CLASS_NAME]
         $query->orderBy('id', $order);
 
         if ($this->paginatedList === true) {
-            $[MODEL_VARIABLE_NAME]s = $query->paginate($item_per_page)->appends($search_query);
-            $[MODEL_VARIABLE_NAME]s->pagination_summary = get_pagination_summary($[MODEL_VARIABLE_NAME]s);
+            $[MODEL_VARIABLE_PLURAL] = $query->paginate($item_per_page)->appends($search_query);
+            $[MODEL_VARIABLE_PLURAL]->pagination_summary = get_pagination_summary($[MODEL_VARIABLE_PLURAL]);
         } else {
-            $[MODEL_VARIABLE_NAME]s = $query->get();
+            $[MODEL_VARIABLE_PLURAL] = $query->get();
         }
 
-        return $[MODEL_VARIABLE_NAME]s;
+        return $[MODEL_VARIABLE_PLURAL];
     }
 
     public function updateOrCreate($data)
@@ -58,19 +58,19 @@ class [CLASS_NAME]
         if(!empty($data["id"])){
             // update
 
-            $[MODEL_VARIABLE_NAME] = [MODEL_NAME]::whereId($data["id"])->first();
-            $[MODEL_VARIABLE_NAME]->updated_by = $user_id;
+            $[MODEL_VARIABLE_SINGULAR] = [MODEL_NAME]::whereId($data["id"])->first();
+            $[MODEL_VARIABLE_SINGULAR]->updated_by = $user_id;
 
         }else{
             //create
 
-            $[MODEL_VARIABLE_NAME] = new [MODEL_NAME]();
-            $[MODEL_VARIABLE_NAME]->created_by = $user_id;
+            $[MODEL_VARIABLE_SINGULAR] = new [MODEL_NAME]();
+            $[MODEL_VARIABLE_SINGULAR]->created_by = $user_id;
         }
 
         [CREATE_UPDATE_BODY]
 
-        return $[MODEL_VARIABLE_NAME]->save() ? $[MODEL_VARIABLE_NAME] : null;
+        return $[MODEL_VARIABLE_SINGULAR]->save() ? $[MODEL_VARIABLE_SINGULAR] : null;
     }
 
     public function getById($id)
@@ -78,9 +78,9 @@ class [CLASS_NAME]
         return [MODEL_NAME]::find($id);
     }
 
-    public function delete($[MODEL_VARIABLE_NAME])
+    public function delete($[MODEL_VARIABLE_SINGULAR])
     {
-        $[MODEL_VARIABLE_NAME] = $[MODEL_VARIABLE_NAME]->delete();
-        return $[MODEL_VARIABLE_NAME];
+        $[MODEL_VARIABLE_SINGULAR] = $[MODEL_VARIABLE_SINGULAR]->delete();
+        return $[MODEL_VARIABLE_SINGULAR];
     }
 }

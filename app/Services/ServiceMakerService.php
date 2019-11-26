@@ -22,30 +22,31 @@ class ServiceMakerService
     {
         $body_array = [];
 
-        foreach($this->configurations["table"]["columns"] as $columnName => $property){
+        foreach ($this->configurations["table"]["columns"] as $columnName => $property) {
 
-            if(empty($property["nullable"]) || $property["nullable"] === false){
-                $body_array[] = 
-                "
-        ".'$'."{$this->configurations["model"]["variable"]}->{$columnName} = ".'$'."data['{$columnName}'];
+            if (empty($property["nullable"]) || $property["nullable"] === false) {
+                $body_array[] =
+                    "
+        " . '$' . "{$this->configurations["model"]["variable_singular"]}->{$columnName} = " . '$' . "data['{$columnName}'];
                 ";
-            }else{
+            } else {
 
-            $body_array[] = 
-            "
-        if(isset(".'$'."data['{$columnName}'])){
-            ".'$'."{$this->configurations["model"]["variable"]}->{$columnName} = ".'$'."data['{$columnName}'];
+                $body_array[] =
+                    "
+        if(isset(" . '$' . "data['{$columnName}'])){
+            " . '$' . "{$this->configurations["model"]["variable_singular"]}->{$columnName} = " . '$' . "data['{$columnName}'];
         }
             ";
             }
         }
 
-        $BODY = implode("\n",$body_array);
+        $BODY = implode("\n", $body_array);
 
         $payload = [
             "[CLASS_NAME]" => $this->configurations["service"]["name"],
             "[MODEL_NAME]" => $this->configurations["model"]["name"],
-            "[MODEL_VARIABLE_NAME]" => $this->configurations["model"]["variable"],
+            "[MODEL_VARIABLE_SINGULAR]" => $this->configurations["model"]["variable_singular"],
+            "[MODEL_VARIABLE_PLURAL]" => $this->configurations["model"]["variable_plural"],
             "[CREATE_UPDATE_BODY]" => $BODY
         ];
 

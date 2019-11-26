@@ -25,9 +25,11 @@ class ControllerMakerService
             "[CONTROLLER_NAME]" => "{$this->configurations['controller']['name']}",
             "[SERVICE_NAME]" => "{$this->configurations['service']['name']}",
             "[SERVICE_VARIABLE_NAME]" => "{$this->configurations['service']['variable']}",
-            "[VIEW_FOLDER]" => "{$this->configurations['viewFolder']}",
+            "[VIEW_DIRECTORY]" => "{$this->configurations['view']['directory']}",
             "[CREATE_FORM_REQUEST]" => "Request",
-            "[UPDATE_FORM_REQUEST]" => "Request"
+            "[UPDATE_FORM_REQUEST]" => "Request",
+            "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
+            "[MODEL_VARIABLE_NAME_PLURAL]" => $this->configurations["model"]["variable_plural"],
         ];
 
         $search = array_keys($payload);

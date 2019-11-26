@@ -1,1 +1,68 @@
-{"table":{"name":"employees","columns":{"first_name":{"type":"string","length":250,"nullable":false,"default":null},"last_name":{"type":"string","length":250,"nullable":true,"default":null},"code":{"type":"string","length":100,"nullable":false,"default":null,"unique":true},"phone":{"type":"string","length":50,"nullable":false,"default":null,"unique":true},"department_id":{"type":"unsignedBigInteger"},"created_by":{"type":"unsignedBigInteger"},"updated_by":{"type":"unsignedBigInteger","nullable":true}}},"model":{"name":"Employee","variable":"employee"},"service":{"name":"EmployeeService","variable":"employeeService"},"controller":{"name":"EmployeeController"},"viewFolder":"employees","theme":"theme1"}
+{
+    "table": {
+        "name": "employees",
+        "columns": {
+            "first_name": {
+                "type": "string",
+                "length": 250,
+                "nullable": false,
+                "default": null
+            },
+            "last_name": {
+                "type": "string",
+                "length": 250,
+                "nullable": true,
+                "default": null
+            },
+            "code": {
+                "type": "string",
+                "length": 100,
+                "nullable": false,
+                "default": null,
+                "unique": true
+            },
+            "phone": {
+                "type": "string",
+                "length": 50,
+                "nullable": false,
+                "default": null,
+                "unique": true
+            },
+            "department_id": {
+                "type": "unsignedBigInteger"
+            },
+            "created_by": {
+                "type": "unsignedBigInteger"
+            },
+            "updated_by": {
+                "type": "unsignedBigInteger",
+                "nullable": true
+            }
+        }
+    },
+    "model": {
+        "name": "Employee",
+        "variable_singular": "employee",
+        "variable_plural": "employees"
+    },
+    "service": {
+        "name": "EmployeeService",
+        "variable": "employeeService"
+    },
+    "controller": {
+        "name": "EmployeeController"
+    },
+    "view": {
+        "directory": "employees"
+    },
+    "routes": {
+        "list": "employees",
+        "create": "employee/create",
+        "edit": "employee/edit",
+        "save": "employee/save",
+        "update": "employee/update",
+        "view": "employee",
+        "delete": "employee/delete"
+    },
+    "theme": "frest-admin"
+}

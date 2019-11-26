@@ -43,8 +43,8 @@ class ViewMakerService
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
             "[LIST_ROUTE]" => $this->configurations["table"]["name"],
-            "[VIEW_FOLDER]" => $this->configurations["viewFolder"],
-            "[MODEL_VARIABLE_NAME]" => $this->configurations["model"]["variable"],
+            "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
+            "[SAVE_ROUTE]" => $this->configurations["routes"]["save"],
         ];
 
         $search = array_keys($payload);
@@ -52,7 +52,7 @@ class ViewMakerService
 
         $output = str_replace($search, $replace, $this->create_template);
 
-        Storage::put("{$this->outputDirectory}/{$this->configurations['viewFolder']}/create.blade.php", $output);
+        Storage::put("{$this->outputDirectory}/{$this->configurations['view']['directory']}/create.blade.php", $output);
 
         return true;
     }
@@ -62,8 +62,9 @@ class ViewMakerService
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
             "[LIST_ROUTE]" => $this->configurations["table"]["name"],
-            "[VIEW_FOLDER]" => $this->configurations["viewFolder"],
-            "[MODEL_VARIABLE_NAME]" => $this->configurations["model"]["variable"],
+            "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
+            "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
+            "[UPDATE_ROUTE]" => $this->configurations["routes"]["update"],
         ];
 
         $search = array_keys($payload);
@@ -71,7 +72,7 @@ class ViewMakerService
 
         $output = str_replace($search, $replace, $this->edit_template);
 
-        Storage::put("{$this->outputDirectory}/{$this->configurations['viewFolder']}/edit.blade.php", $output);
+        Storage::put("{$this->outputDirectory}/{$this->configurations['view']['directory']}/edit.blade.php", $output);
 
         return true;
     }
@@ -81,8 +82,8 @@ class ViewMakerService
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
             "[LIST_ROUTE]" => $this->configurations["table"]["name"],
-            "[VIEW_FOLDER]" => $this->configurations["viewFolder"],
-            "[MODEL_VARIABLE_NAME]" => $this->configurations["model"]["variable"],
+            "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
+            "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
         ];
 
         $search = array_keys($payload);
@@ -90,7 +91,7 @@ class ViewMakerService
 
         $output = str_replace($search, $replace, $this->view_template);
 
-        Storage::put("{$this->outputDirectory}/{$this->configurations['viewFolder']}/view.blade.php", $output);
+        Storage::put("{$this->outputDirectory}/{$this->configurations['view']['directory']}/view.blade.php", $output);
 
         return true;
     }
@@ -100,8 +101,8 @@ class ViewMakerService
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
             "[LIST_ROUTE]" => $this->configurations["table"]["name"],
-            "[VIEW_FOLDER]" => $this->configurations["viewFolder"],
-            "[MODEL_VARIABLE_NAME]" => $this->configurations["model"]["variable"],
+            "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
+            "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
         ];
 
         $search = array_keys($payload);
@@ -109,7 +110,7 @@ class ViewMakerService
 
         $output = str_replace($search, $replace, $this->list_template);
 
-        Storage::put("{$this->outputDirectory}/{$this->configurations['viewFolder']}/list.blade.php", $output);
+        Storage::put("{$this->outputDirectory}/{$this->configurations['view']['directory']}/list.blade.php", $output);
 
         return true;
     }
@@ -119,8 +120,8 @@ class ViewMakerService
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
             "[LIST_ROUTE]" => $this->configurations["table"]["name"],
-            "[VIEW_FOLDER]" => $this->configurations["viewFolder"],
-            "[MODEL_VARIABLE_NAME]" => $this->configurations["model"]["variable"],
+            "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
+            "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
         ];
 
         $search = array_keys($payload);
@@ -128,7 +129,7 @@ class ViewMakerService
 
         $output = str_replace($search, $replace, $this->form_template);
 
-        Storage::put("{$this->outputDirectory}/{$this->configurations['viewFolder']}/form.blade.php", $output);
+        Storage::put("{$this->outputDirectory}/{$this->configurations['view']['directory']}/form.blade.php", $output);
 
         return true;
     }

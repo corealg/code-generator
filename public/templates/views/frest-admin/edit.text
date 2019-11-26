@@ -10,17 +10,18 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Create [FEATURE_NAME]</h5>
+                    <h5 class="card-title">Edit [FEATURE_NAME]: ??</h5>
                     <div class="heading-elements">
                         <a href="{{url('[LIST_ROUTE]')}}" class="btn btn-light-secondary mr-1 mb-1"><i class="bx bx-left-arrow-alt"></i> Back to list</a>
                     </div>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
-                        {!! Form::open(['url' => '[MODEL_VARIABLE_NAME]/save']) !!}
-                            @include('[VIEW_FOLDER].form')
+                        {!! Form::model($[MODEL_VARIABLE_NAME_SINGULAR], ['url' => '[UPDATE_ROUTE]']) !!}
+                            @include('[VIEW_DIRECTORY].form')
                                 
-                            <button type="submit" class="btn btn-primary mr-1 mb-1"><i class="bx bxs-save"></i> Save</button>
+                            {!! Form::hidden('id') !!}
+                            <button type="submit" class="btn btn-primary mr-1 mb-1"><i class="bx bxs-save"></i> Update</button>
                             <a href="{{url('[LIST_ROUTE]')}}" class="btn btn-light-secondary mr-1 mb-1"><i class="bx bx-left-arrow-alt"></i> Back to list</a>
                             {!!validationHintsMessage()!!}
                         {!! Form::close() !!}

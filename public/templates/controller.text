@@ -17,31 +17,31 @@ class [CONTROLLER_NAME] extends Controller
     public function index(Request $request)
     {
         $data = $request->all();
-        $users = $this->[SERVICE_VARIABLE_NAME]->lists($data);
+        $[MODEL_VARIABLE_NAME_PLURAL] = $this->[SERVICE_VARIABLE_NAME]->lists($data);
 
         $search = $request->search;
 
-        return view("[VIEW_FOLDER].index", compact(["users", "search"]));
+        return view("[VIEW_DIRECTORY].index", compact(["[MODEL_VARIABLE_NAME_PLURAL]", "search"]));
     }
 
     public function create(Request $request)
     {
-        return view("[VIEW_FOLDER].create");
+        return view("[VIEW_DIRECTORY].create");
     }
 
     public function edit(Request $request, $id)
     {
-        $user = $this->[SERVICE_VARIABLE_NAME]->getById($id);
-        return view("[VIEW_FOLDER].edit", compact(["user"]));
+        $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->getById($id);
+        return view("[VIEW_DIRECTORY].edit", compact(["[MODEL_VARIABLE_NAME_SINGULAR]"]));
     }
 
     public function save([CREATE_FORM_REQUEST] $request)
     {
         $validatedData = $request->all();
 
-        $user = $this->[SERVICE_VARIABLE_NAME]->createOrUpdate($validatedData);
+        $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->createOrUpdate($validatedData);
 
-        if(is_null($user) === false){
+        if(is_null($[MODEL_VARIABLE_NAME_SINGULAR]) === false){
             $message = message("Operation succeed.");
         }else{
             $message = message("Operation failed.", "error");
@@ -55,9 +55,9 @@ class [CONTROLLER_NAME] extends Controller
     {
         $validatedData = $request->all();
 
-        $user = $this->[SERVICE_VARIABLE_NAME]->createOrUpdate($validatedData);
+        $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->createOrUpdate($validatedData);
 
-        if(is_null($user) === false){
+        if(is_null($[MODEL_VARIABLE_NAME_SINGULAR]) === false){
             $message = message("Operation succeed.");
         }else{
             $message = message("Operation failed.", "error");
@@ -69,15 +69,15 @@ class [CONTROLLER_NAME] extends Controller
     
     public function view(Request $request, $id)
     {
-        $user = $this->[SERVICE_VARIABLE_NAME]->getById($id);
-        return view("[VIEW_FOLDER].view", compact(["user"]));
+        $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->getById($id);
+        return view("[VIEW_DIRECTORY].view", compact(["user"]));
     }
 
     public function delete(Request $request, $id)
     {
-        $user = $this->[SERVICE_VARIABLE_NAME]->getById($id);
+        $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->getById($id);
 
-        $response = $this->[SERVICE_VARIABLE_NAME]->delete($user);
+        $response = $this->[SERVICE_VARIABLE_NAME]->delete($[MODEL_VARIABLE_NAME_SINGULAR]);
         
         if($response === true){
             $message = message("Operation succeed.");
