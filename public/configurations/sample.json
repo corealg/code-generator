@@ -1,0 +1,44 @@
+{
+    "table": {
+        "name": "departments",
+        "columns": {
+            "name": {
+                "type": "string",
+                "length": 250,
+                "nullable": false,
+                "default": null
+            },
+            "detail": {
+                "type": "string",
+                "length": 250,
+                "nullable": true,
+                "default": null
+            }
+        }
+    },
+    "model": {
+        "name": "Department",
+        "variable_singular": "department",
+        "variable_plural": "departments"
+    },
+    "service": {
+        "name": "DepartmentService",
+        "variable": "departmentService"
+    },
+    "controller": {
+        "name": "DepartmentController"
+    },
+    "view": {
+        "directory": "departments"
+    },
+    "routes": {
+        "list": "departments",
+        "create": "department/create",
+        "edit": "department/edit",
+        "save": "department/save",
+        "update": "department/update",
+        "view": "department",
+        "delete": "department/delete"
+    },
+    "theme": "frest-admin"
+}

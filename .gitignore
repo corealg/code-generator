@@ -10,4 +10,9 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-storage/app/output
+
+storage/app/output/*
+!*/storage/app/output/sample.json-*/*
+
+public/configurations/*
+!public/configurations/sample.json
