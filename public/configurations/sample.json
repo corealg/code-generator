@@ -9,13 +9,27 @@
                     "type": "string",
                     "length": 250,
                     "nullable": false,
-                    "default": null
+                    "default": null,
+                    "html_element": "text"
                 },
                 "detail": {
                     "type": "string",
                     "length": 250,
                     "nullable": true,
-                    "default": null
+                    "default": null,
+                    "html_element": "textarea"
+                },
+                "created_at": {
+                    "type": "unsignedBigInteger",
+                    "nullable": false,
+                    "default": null,
+                    "html_element": null
+                },
+                "updated_at": {
+                    "type": "unsignedBigInteger",
+                    "nullable": true,
+                    "default": null,
+                    "html_element": null
                 }
             }
         }

@@ -13,27 +13,28 @@ class ViewMakerService
     protected $view_template;
     protected $form_template;
     protected $configurations;
+    protected $theme;
 
     public function __construct($config)
     {
         $this->outputDirectory = $config["outputDirectory"];
         $this->configurations = $config["configurations"];
 
-        $theme = $this->configurations["theme"];
+        $this->theme = $this->configurations["theme"];
 
-        $this->create_template = file_get_contents(public_path("templates/views/{$theme}/create.text"));
-        $this->edit_template = file_get_contents(public_path("templates/views/{$theme}/edit.text"));
-        $this->list_template = file_get_contents(public_path("templates/views/{$theme}/list.text"));
-        $this->view_template = file_get_contents(public_path("templates/views/{$theme}/view.text"));
-        $this->form_template = file_get_contents(public_path("templates/views/{$theme}/form.text"));
+        $this->create_template = file_get_contents(public_path("templates/views/{$this->theme}/create.text"));
+        $this->edit_template = file_get_contents(public_path("templates/views/{$this->theme}/edit.text"));
+        $this->list_template = file_get_contents(public_path("templates/views/{$this->theme}/list.text"));
+        $this->view_template = file_get_contents(public_path("templates/views/{$this->theme}/view.text"));
+        $this->form_template = file_get_contents(public_path("templates/views/{$this->theme}/form.text"));
     }
 
     public function make()
     {
-        $this->makeCreateBlade();
-        $this->makeEditBlade();
-        $this->makeSingleViewBlade();
-        $this->makeListBlade();
+        // $this->makeCreateBlade();
+        // $this->makeEditBlade();
+        // $this->makeSingleViewBlade();
+        // $this->makeListBlade();
         $this->makeFormBlade();
 
         return true;
@@ -121,6 +122,27 @@ class ViewMakerService
 
     public function makeFormBlade()
     {
+        $element_array = [];
+
+        foreach ($this->configurations["migration"]["table"]["columns"] as $columnName => $property) {
+
+            if (!isset($property["html_element"]) || is_null(isset($property["html_element"])) === true) {
+                continue;
+            }
+
+            try{
+                $raw_element = file_get_contents(public_path("templates/views/{$this->theme}/components/{$property['html_element']}.text"));
+            }catch(\Exception $ex){
+                continue;
+            }
+
+            $element_payload = [];
+
+            dd($raw_element, $columnName, $property);
+
+        }
+
+        dd("HI");
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
             "[LIST_ROUTE]" => $this->configurations["routes"]["list"],

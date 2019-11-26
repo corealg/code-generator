@@ -1,0 +1,13 @@
+<div class="form-group">
+    <label>[LABEL]</label>
+    <ul class="list-unstyled mb-0">
+        <li class="d-inline-block mr-2 mb-1">
+            <fieldset>
+                <div class="checkbox">
+                    {!! Form::checkbox("[ELEMENT_NAME]", true, true, ["class"=>"checkbox-input", "id"=>"chk_[ELEMENT_NAME]"]) !!}
+                    <label for="chk_[ELEMENT_NAME]">[LABEL]</label>
+                </div>
+            </fieldset>
+        </li>
+    </ul>
+</div>

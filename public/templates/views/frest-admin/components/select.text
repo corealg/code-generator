@@ -1,0 +1,5 @@
+<div class="form-group">
+    <label for="[ELEMENT_NAME]">[LABEL] [VALIDATION_HINTS]</label>
+    {!! Form::select("[ELEMENT_NAME]", [], null, ["class"=>"select2 form-control", "placeholder"=>"[PLACEHOLDER]"]) !!}
+    <span class="validation-error">{{ $errors->first("[ELEMENT_NAME]") }}</span>
+</div>

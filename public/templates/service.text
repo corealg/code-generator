@@ -23,8 +23,7 @@ class [CLASS_NAME]
     {
         $search_query = [];
 
-        $item_per_page = $this->settingService->get("item_per_page", 25);
-        $order = $this->settingService->get("data_order", "desc");
+        $order = $this->settingService->get("data_order", "desc") ?? "desc";
 
         $query = [MODEL_NAME]::query();
 
@@ -42,6 +41,9 @@ class [CLASS_NAME]
         $query->orderBy('id', $order);
 
         if ($this->paginatedList === true) {
+
+            $item_per_page = $this->settingService->get("item_per_page", 25) ?? 25;
+
             $[MODEL_VARIABLE_PLURAL] = $query->paginate($item_per_page)->appends($search_query);
             $[MODEL_VARIABLE_PLURAL]->pagination_summary = get_pagination_summary($[MODEL_VARIABLE_PLURAL]);
         } else {

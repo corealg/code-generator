@@ -24,6 +24,10 @@ class ServiceMakerService
 
         foreach ($this->configurations["migration"]["table"]["columns"] as $columnName => $property) {
 
+            if(!isset($property["html_element"]) || is_null(isset($property["html_element"])) === true){
+                continue;
+            }
+
             if (empty($property["nullable"]) || $property["nullable"] === false) {
                 $body_array[] =
                     "
