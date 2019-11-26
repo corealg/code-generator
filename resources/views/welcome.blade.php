@@ -1,69 +1,10 @@
-@php
-dd(json_encode([
-"table" => [
-    "name" => "employees",
-    "columns" => [
-        "first_name" => [
-            "type" => "string",
-            "length" => 250,
-            "nullable" => false,
-            "default" => null
-        ],
-        "last_name" => [
-            "type" => "string",
-            "length" => 250,
-            "nullable" => true,
-            "default" => null
-        ],
-        "code" => [
-            "type" => "string",
-            "length" => 100,
-            "nullable" => false,
-            "default" => null,
-            "unique" => true
-        ],
-        "phone" => [
-            "type" => "string",
-            "length" => 50,
-            "nullable" => false,
-            "default" => null,
-            "unique" => true
-        ],
-        "department_id" => [
-            "type" => "unsignedBigInteger"
-        ],
-        "created_by" => [
-            "type" => "unsignedBigInteger"
-        ],
-        "updated_by" => [
-            "type" => "unsignedBigInteger",
-            "nullable" => true,
-        ]
-    ]
-],
-"model" => [
-    "name" => "Employee",
-    "variable" => "employee"
-],
-"service" => [
-    "name" => "EmployeeService",
-    "variable" => "employeeService"
-],
-"controller" => [
-    "name" => "EmployeeController"
-],
-"viewFolder" => "employees",
-"theme" => "theme1"
-]));
-@endphp
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Code Generator</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -140,10 +81,10 @@ dd(json_encode([
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Welcome to lazy world!
                 </div>
 
-                <div class="links">
+                {{-- <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
@@ -152,7 +93,7 @@ dd(json_encode([
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://vapor.laravel.com">Vapor</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                </div> --}}
             </div>
         </div>
     </body>
