@@ -21,7 +21,7 @@ class [CONTROLLER_NAME] extends Controller
 
         $search = $request->search;
 
-        return view("[VIEW_DIRECTORY].index", compact(["[MODEL_VARIABLE_NAME_PLURAL]", "search"]));
+        return view("[VIEW_DIRECTORY].list", compact(["[MODEL_VARIABLE_NAME_PLURAL]", "search"]));
     }
 
     public function create(Request $request)
@@ -55,7 +55,7 @@ class [CONTROLLER_NAME] extends Controller
     {
         $validatedData = $request->all();
 
-        $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->createOrUpdate($validatedData);
+        $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->updateOrCreate($validatedData);
 
         if(is_null($[MODEL_VARIABLE_NAME_SINGULAR]) === false){
             $message = message("Operation succeed.");

@@ -22,7 +22,7 @@ class ServiceMakerService
     {
         $body_array = [];
 
-        foreach ($this->configurations["table"]["columns"] as $columnName => $property) {
+        foreach ($this->configurations["migration"]["table"]["columns"] as $columnName => $property) {
 
             if (empty($property["nullable"]) || $property["nullable"] === false) {
                 $body_array[] =

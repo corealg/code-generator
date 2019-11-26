@@ -42,7 +42,7 @@ class ViewMakerService
     {
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
-            "[LIST_ROUTE]" => $this->configurations["table"]["name"],
+            "[LIST_ROUTE]" => $this->configurations["routes"]["list"],
             "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
             "[SAVE_ROUTE]" => $this->configurations["routes"]["save"],
         ];
@@ -61,7 +61,7 @@ class ViewMakerService
     {
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
-            "[LIST_ROUTE]" => $this->configurations["table"]["name"],
+            "[LIST_ROUTE]" => $this->configurations["routes"]["list"],
             "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
             "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
             "[UPDATE_ROUTE]" => $this->configurations["routes"]["update"],
@@ -81,7 +81,7 @@ class ViewMakerService
     {
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
-            "[LIST_ROUTE]" => $this->configurations["table"]["name"],
+            "[LIST_ROUTE]" => $this->configurations["routes"]["list"],
             "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
             "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
         ];
@@ -100,7 +100,7 @@ class ViewMakerService
     {
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
-            "[LIST_ROUTE]" => $this->configurations["table"]["name"],
+            "[LIST_ROUTE]" => $this->configurations["routes"]["list"],
             "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
             "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
         ];
@@ -119,7 +119,7 @@ class ViewMakerService
     {
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
-            "[LIST_ROUTE]" => $this->configurations["table"]["name"],
+            "[LIST_ROUTE]" => $this->configurations["routes"]["list"],
             "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
             "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
         ];

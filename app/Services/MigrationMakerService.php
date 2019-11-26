@@ -22,7 +22,7 @@ class MigrationMakerService
     {
         $body_array = [];
 
-        foreach($this->configurations["table"]["columns"] as $columnName => $property){
+        foreach($this->configurations["migration"]["table"]["columns"] as $columnName => $property){
 
             $length = "";
             
@@ -56,8 +56,8 @@ class MigrationMakerService
         $BODY = implode("\n",$body_array);
 
         $payload = [
-            "[CLASS_NAME]" => "Create{$this->configurations['model']['name']}Table",
-            "[TABLE_NAME]" => $this->configurations["table"]["name"],
+            "[CLASS_NAME]" => "{$this->configurations['migration']['class_name']}",
+            "[TABLE_NAME]" => $this->configurations["migration"]["table"]["name"],
             "[BODY]" => $BODY
         ];
 
@@ -68,7 +68,7 @@ class MigrationMakerService
 
         $now = now()->format("Y_m_d_his");
 
-        $migrationName = "{$now}_create_{$this->configurations['table']['name']}_table.php";
+        $migrationName = "{$now}_{$this->configurations['migration']['name']}.php";
 
         Storage::put("{$this->outputDirectory}/{$migrationName}", $output);
 

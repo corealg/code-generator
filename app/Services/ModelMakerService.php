@@ -26,7 +26,7 @@ class ModelMakerService
 
         $fillable_property = [];
 
-        foreach($this->configurations["table"]["columns"] as $columnName => $property){
+        foreach($this->configurations["migration"]["table"]["columns"] as $columnName => $property){
 
             if(empty($property["nullable"]) || $property["nullable"] === false){
                 $fillable_property[] = "'{$columnName}'";
