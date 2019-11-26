@@ -1,18 +1,22 @@
 {
-    "table": {
-        "name": "departments",
-        "columns": {
-            "name": {
-                "type": "string",
-                "length": 250,
-                "nullable": false,
-                "default": null
-            },
-            "detail": {
-                "type": "string",
-                "length": 250,
-                "nullable": true,
-                "default": null
+    "migration": {
+        "name": "create_departments_table",
+        "class_name": "CreateDepartmentsTable",
+        "table": {
+            "name": "departments",
+            "columns": {
+                "name": {
+                    "type": "string",
+                    "length": 250,
+                    "nullable": false,
+                    "default": null
+                },
+                "detail": {
+                    "type": "string",
+                    "length": 250,
+                    "nullable": true,
+                    "default": null
+                }
             }
         }
     },

@@ -43,7 +43,6 @@ class CodeGenerator extends Command
      */
     public function handle()
     {
-
         $configurationFileName = $this->argument("configurationFileName");
         $configurationJson = file_get_contents(public_path("configurations/{$configurationFileName}"));
         $configurationArray = json_decode($configurationJson, true);
