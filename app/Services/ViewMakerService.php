@@ -28,7 +28,8 @@ class ViewMakerService
         $this->form_template = file_get_contents(public_path("templates/views/{$theme}/form.text"));
     }
 
-    public function make(){
+    public function make()
+    {
         $this->makeCreateBlade();
         $this->makeEditBlade();
         $this->makeSingleViewBlade();
@@ -82,8 +83,7 @@ class ViewMakerService
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
             "[LIST_ROUTE]" => $this->configurations["routes"]["list"],
-            "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
-            "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
+            "[MODEL_VARIABLE_NAME_PLURAL]" => $this->configurations["model"]["variable_plural"],
         ];
 
         $search = array_keys($payload);
@@ -100,9 +100,13 @@ class ViewMakerService
     {
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
-            "[LIST_ROUTE]" => $this->configurations["routes"]["list"],
+            "[CREATE_ROUTE]" => $this->configurations["routes"]["create"],
+            "[EDIT_ROUTE]" => $this->configurations["routes"]["edit"],
+            "[VIEW_ROUTE]" => $this->configurations["routes"]["view"],
+            "[DELETE_ROUTE]" => $this->configurations["routes"]["delete"],
             "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
             "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
+            "[MODEL_VARIABLE_NAME_PLURAL]" => $this->configurations["model"]["variable_plural"],
         ];
 
         $search = array_keys($payload);

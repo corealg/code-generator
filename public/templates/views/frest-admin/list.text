@@ -1,17 +1,17 @@
 @extends('layouts.master')
 
-@section("page_title") Division @endsection
+@section("page_title") [FEATURE_NAME] @endsection
 
-@section("content_header") Division @endsection
+@section("content_header") [FEATURE_NAME] @endsection
 
 @section('content')
 <div class="row" id="basic-table">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title">Division' List ({{ $divisions->count() }})</h5>
+                <h5 class="card-title">[FEATURE_NAME] List ({{ $[MODEL_VARIABLE_NAME_PLURAL]->count() }})</h5>
                 <div class="heading-elements">
-                    <a href="{{url('division/create')}}" class="btn btn-danger mr-1 mb-1"><i class="bx bx-plus"></i> Create New</a>
+                    <a href="{{url('[CREATE_ROUTE]')}}" class="btn btn-danger mr-1 mb-1"><i class="bx bx-plus"></i> Create New</a>
                 </div>
             </div>
             <div class="card-content">
@@ -21,8 +21,7 @@
                             <thead>
                                 <tr>
                                     <th>Sl.</th>
-                                    <th>Name</th>
-                                    <th>Detail</th>
+                                    <th>Id</th>
                                     <th>Created At</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -31,21 +30,27 @@
                                 @php
                                     $i = 1;
                                 @endphp
-                                @forelse($divisions as $division)
+                                @forelse($[MODEL_VARIABLE_NAME_PLURAL] as $[MODEL_VARIABLE_NAME_SINGULAR])
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td>{{ $division->name }}</td>
-                                    <td>{{ $division->detail }}</td>
-                                    <td>{{ Parser::parseDate($division->created_at) }}</td>
+                                    <td>{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}</td>
+                                    <td>{{ Parser::parseDate($[MODEL_VARIABLE_NAME_SINGULAR]->created_at) }}</td>
                                     <td class="text-center">
-                                        @can('edit', $division)
-                                            <a href="{{url('division/edit')}}/{{ $division->id }}" class="btn btn-icon btn-success glow mr-1 mb-1"><i class="bx bx-edit-alt"></i></a>
+
+                                        @can('view', $[MODEL_VARIABLE_NAME_SINGULAR])
+                                            <a href="{{url('[VIEW_ROUTE]')}}/{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}" class="btn btn-icon btn-info glow mr-1 mb-1"><i class="bx bx-eye"></i></a>
+                                        @else
+                                            <a href="#" class="btn btn-icon btn-info glow mr-1 mb-1 disabled"><i class="bx bx-eye"></i></a>
+                                        @endcan
+
+                                        @can('edit', $[MODEL_VARIABLE_NAME_SINGULAR])
+                                            <a href="{{url('[EDIT_ROUTE]')}}/{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}" class="btn btn-icon btn-success glow mr-1 mb-1"><i class="bx bx-edit-alt"></i></a>
                                         @else
                                             <a href="#" class="btn btn-icon btn-success glow mr-1 mb-1 disabled"><i class="bx bx-edit-alt"></i></a>
                                         @endcan
 
-                                        @can('delete', $division)
-                                            <a href="#" class="btn btn-icon btn-danger alert-dialog glow mr-1 mb-1" data-id="{{ $division->id }}" data-action="division/delete" data-message="Are you sure, You want to remove this division?"><i class="bx bx-trash-alt"></i></a>
+                                        @can('delete', $[MODEL_VARIABLE_NAME_SINGULAR])
+                                            <a href="#" class="btn btn-icon btn-danger alert-dialog glow mr-1 mb-1" data-id="{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}" data-action="[DELETE_ROUTE]" data-message="Are you sure, You want to remove this [FEATURE_NAME]?"><i class="bx bx-trash-alt"></i></a>
                                         @else
                                             <a href="#" class="btn btn-icon btn-danger glow mr-1 mb-1 disabled"><i class="bx bx-trash-alt"></i></a>
                                         @endcan
@@ -56,19 +61,19 @@
                                 @endphp
                                 @empty
                                     <tr>
-                                        <td colspan="4">No Records </td>
+                                        <td colspan="4">No Records</td>
                                     </tr>
                                 @endforelse
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="4">
-                                        @if(!empty($divisions->pagination_summary))
-                                            <span class="label label-primary">{{ $divisions->pagination_summary }}</span>
+                                        @if(!empty($[MODEL_VARIABLE_NAME_PLURAL]->pagination_summary))
+                                            <span class="label label-primary">{{ $[MODEL_VARIABLE_NAME_PLURAL]->pagination_summary }}</span>
                                         @endif
                                     </td>
-                                    <td colspan="5">
-                                        <div class="pull-right">{{ $divisions->links() }}</div>
+                                    <td colspan="4">
+                                        <div class="pull-right">{{ $[MODEL_VARIABLE_NAME_PLURAL]->links() }}</div>
                                     </td>
                                 </tr>
                             </tfoot>
