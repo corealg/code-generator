@@ -86,7 +86,7 @@ class BladeMakerService
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
             "[LIST_ROUTE]" => $this->configurations["routes"]["list"],
-            "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_plural"],
+            "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
             "[MODEL_NAME]" => "{$this->configurations['model']['name']}"
         ];
 
