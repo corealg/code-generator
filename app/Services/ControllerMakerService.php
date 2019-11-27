@@ -28,6 +28,7 @@ class ControllerMakerService
             "[VIEW_DIRECTORY]" => "{$this->configurations['view']['directory']}",
             "[CREATE_FORM_REQUEST]" => "Request",
             "[UPDATE_FORM_REQUEST]" => "Request",
+            "[MODEL_NAME]" => $this->configurations["model"]["name"],
             "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
             "[MODEL_VARIABLE_NAME_PLURAL]" => $this->configurations["model"]["variable_plural"],
         ];

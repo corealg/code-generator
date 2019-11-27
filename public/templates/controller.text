@@ -42,9 +42,9 @@ class [CONTROLLER_NAME] extends Controller
         $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->updateOrCreate($validatedData);
 
         if(is_null($[MODEL_VARIABLE_NAME_SINGULAR]) === false){
-            $message = message("Operation succeed.");
+            $message = message("[MODEL_NAME] has been successfully created.");
         }else{
-            $message = message("Operation failed.", "error");
+            $message = message("[MODEL_NAME] has not created.", "error");
         }
 
         session()->flash("message", $message);
@@ -58,9 +58,9 @@ class [CONTROLLER_NAME] extends Controller
         $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->updateOrCreate($validatedData);
 
         if(is_null($[MODEL_VARIABLE_NAME_SINGULAR]) === false){
-            $message = message("Operation succeed.");
+            $message = message("[MODEL_NAME] has been successfully updated.");
         }else{
-            $message = message("Operation failed.", "error");
+            $message = message("[MODEL_NAME] has not updated.", "error");
         }
 
         session()->flash("message", $message);
@@ -73,16 +73,18 @@ class [CONTROLLER_NAME] extends Controller
         return view("[VIEW_DIRECTORY].view", compact(["[MODEL_VARIABLE_NAME_SINGULAR]"]));
     }
 
-    public function delete(Request $request, $id)
+    public function delete(Request $request)
     {
+        $id = $request->id;
+
         $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->getById($id);
 
         $response = $this->[SERVICE_VARIABLE_NAME]->delete($[MODEL_VARIABLE_NAME_SINGULAR]);
         
         if($response === true){
-            $message = message("Operation succeed.");
+            $message = message("[MODEL_NAME] has been successfully deleted.");
         }else{
-            $message = message("Operation failed.", "error");
+            $message = message("[MODEL_NAME] has not deleted.", "error");
         }
 
         session()->flash("message", $message);
