@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\[MODEL_NAME];
 use App\Services\[SERVICE_NAME];
 use Illuminate\Http\Request;
 
@@ -16,6 +17,10 @@ class [CONTROLLER_NAME] extends Controller
 
     public function index(Request $request)
     {
+        if (Gate::denies('list', [MODEL_NAME]::class)) {
+            return view("errors.403");
+        }
+
         $data = $request->all();
         $[MODEL_VARIABLE_NAME_PLURAL] = $this->[SERVICE_VARIABLE_NAME]->lists($data);
 
@@ -26,17 +31,30 @@ class [CONTROLLER_NAME] extends Controller
 
     public function create(Request $request)
     {
+        if (Gate::denies('create', [MODEL_NAME]::class)) {
+            return view("errors.403");
+        }
+
         return view("[VIEW_DIRECTORY].create");
     }
 
     public function edit(Request $request, $id)
     {
         $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->getById($id);
+
+        if (Gate::denies('edit', $[MODEL_VARIABLE_NAME_SINGULAR])) {
+            return view("errors.403");
+        }
+
         return view("[VIEW_DIRECTORY].edit", compact(["[MODEL_VARIABLE_NAME_SINGULAR]"]));
     }
 
     public function save([CREATE_FORM_REQUEST] $request)
     {
+        if (Gate::denies('create', [MODEL_NAME]::class)) {
+            return view("errors.403");
+        }
+
         $validatedData = $request->all();
 
         $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->updateOrCreate($validatedData);
@@ -70,6 +88,11 @@ class [CONTROLLER_NAME] extends Controller
     public function view(Request $request, $id)
     {
         $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->getById($id);
+
+        if (Gate::denies('view', $[MODEL_VARIABLE_NAME_SINGULAR])) {
+            return view("errors.403");
+        }
+
         return view("[VIEW_DIRECTORY].view", compact(["[MODEL_VARIABLE_NAME_SINGULAR]"]));
     }
 
@@ -78,6 +101,10 @@ class [CONTROLLER_NAME] extends Controller
         $id = $request->id;
 
         $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->getById($id);
+
+        if (Gate::denies('delete', $[MODEL_VARIABLE_NAME_SINGULAR])) {
+            return view("errors.403");
+        }
 
         $response = $this->[SERVICE_VARIABLE_NAME]->delete($[MODEL_VARIABLE_NAME_SINGULAR]);
         
