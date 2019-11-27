@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Observers;
+
+use App\[MODEL_NAME];
+use App\Services\AuditLogService;
+
+class [OBSERVER_NAME]
+{
+    protected $auditLogService;
+
+    public function __construct()
+    {
+        $this->auditLogService = new AuditLogService();
+    }
+
+    /**
+     * Handle the [MODEL_NAME] "created" event.
+     *
+     * @param  \App\[MODEL_NAME]  $[MODEL_VARIABLE_NAME_SINGULAR]
+     * @return void
+     */
+    public function created([MODEL_NAME] $[MODEL_VARIABLE_NAME_SINGULAR])
+    {
+        $this->auditLogService->add("create", $[MODEL_VARIABLE_NAME_SINGULAR]);
+    }
+
+    /**
+     * Handle the [MODEL_NAME] "updated" event.
+     *
+     * @param  \App\[MODEL_NAME]  $[MODEL_VARIABLE_NAME_SINGULAR]
+     * @return void
+     */
+    public function updated([MODEL_NAME] $[MODEL_VARIABLE_NAME_SINGULAR])
+    {
+        if($[MODEL_VARIABLE_NAME_SINGULAR]->isDirty() === true){
+
+            $this->auditLogService->add("update", $[MODEL_VARIABLE_NAME_SINGULAR]);
+        }
+    }
+
+    /**
+     * Handle the [MODEL_NAME] "deleted" event.
+     *
+     * @param  \App\[MODEL_NAME]  $[MODEL_VARIABLE_NAME_SINGULAR]
+     * @return void
+     */
+    public function deleted([MODEL_NAME] $[MODEL_VARIABLE_NAME_SINGULAR])
+    {
+        $this->auditLogService->add("delete", $[MODEL_VARIABLE_NAME_SINGULAR]);
+    }
+
+    /**
+     * Handle the [MODEL_NAME] "restored" event.
+     *
+     * @param  \App\[MODEL_NAME]  $[MODEL_VARIABLE_NAME_SINGULAR]
+     * @return void
+     */
+    public function restored([MODEL_NAME] $[MODEL_VARIABLE_NAME_SINGULAR])
+    {
+        //
+    }
+
+    /**
+     * Handle the [MODEL_NAME] "force deleted" event.
+     *
+     * @param  \App\[MODEL_NAME]  $[MODEL_VARIABLE_NAME_SINGULAR]
+     * @return void
+     */
+    public function forceDeleted([MODEL_NAME] $[MODEL_VARIABLE_NAME_SINGULAR])
+    {
+        //
+    }
+}

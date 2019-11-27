@@ -49,6 +49,9 @@
     "policy": {
         "name": "DepartmentPolicy"
     },
+    "observer": {
+        "name": "DepartmentObserver"
+    },
     "view": {
         "directory": "departments"
     },

@@ -7,6 +7,7 @@ use App\Services\MigrationMakerService;
 use App\Services\ModelMakerService;
 use App\Services\ServiceMakerService;
 use App\Services\BladeMakerService;
+use App\Services\ObserverMakerService;
 use App\Services\PolicyMakerService;
 use App\Services\WebRouteMakerService;
 use Exception;
@@ -45,11 +46,11 @@ class CodeGenerator extends Command
      */
     public function handle()
     {
-        try{
+        try {
             $configurationFileName = $this->argument("configurationFileName");
             $configurationJson = file_get_contents(public_path("configurations/{$configurationFileName}"));
             $configurationArray = json_decode($configurationJson, true);
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             $this->error($ex->getMessage());
             return false;
         }
@@ -82,6 +83,9 @@ class CodeGenerator extends Command
 
         $policyMaker = new PolicyMakerService($argument);
         $policyMaker->make();
+
+        $observerMaker = new ObserverMakerService($argument);
+        $observerMaker->make();
 
         $this->info("DONE!");
     }
