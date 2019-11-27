@@ -25,7 +25,7 @@
                 </div>
                 <div class="card-content">
                     <div class="card-body">
-                        {{ $[MODEL_VARIABLE_NAME_PLURAL]->toJson() }}
+                        {{ $[MODEL_VARIABLE_NAME_SINGULAR]->toJson() }}
 
                         @can('list', \App\[MODEL_NAME]::class)
                             <a href="{{url('[LIST_ROUTE]')}}" class="btn btn-light-secondary mr-1 mb-1">
