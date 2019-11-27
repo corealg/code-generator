@@ -1,10 +1,17 @@
 {
     "migration": {
-        "name": "create_departments_table",
-        "class_name": "CreateDepartmentsTable",
+        "name": "create_branches_table",
+        "class_name": "CreateBranchesTable",
         "table": {
-            "name": "departments",
+            "name": "branches",
             "columns": {
+                "bank_id": {
+                    "type": "unsignedBigInteger",
+                    "nullable": false,
+                    "default": null,
+                    "html_element": "select",
+                    "index": true
+                },
                 "name": {
                     "type": "string",
                     "length": 250,
@@ -12,20 +19,21 @@
                     "default": null,
                     "html_element": "text"
                 },
-                "detail": {
+                "code": {
                     "type": "string",
-                    "length": 250,
-                    "nullable": true,
+                    "length": 100,
+                    "nullable": false,
+                    "unique": true,
                     "default": null,
-                    "html_element": "textarea"
+                    "html_element": "text"
                 },
-                "created_at": {
+                "created_by": {
                     "type": "unsignedBigInteger",
                     "nullable": false,
                     "default": null,
                     "html_element": null
                 },
-                "updated_at": {
+                "updated_by": {
                     "type": "unsignedBigInteger",
                     "nullable": true,
                     "default": null,
@@ -35,42 +43,34 @@
         }
     },
     "model": {
-        "name": "Department",
-        "variable_singular": "department",
-        "variable_plural": "departments"
+        "name": "Branch",
+        "variable_singular": "branch",
+        "variable_plural": "branches"
     },
     "service": {
-        "name": "DepartmentService",
-        "variable": "departmentService"
+        "name": "BranchService",
+        "variable": "branchService"
     },
     "controller": {
-        "name": "DepartmentController"
+        "name": "BranchController"
     },
     "policy": {
-        "name": "DepartmentPolicy"
+        "name": "BranchPolicy"
     },
     "observer": {
-        "name": "DepartmentObserver"
-    },
-    "requestValidator": {
-        "create": {
-            "name": "Request"
-        },
-        "update": {
-            "name": "Request"
-        }
+        "name": "BranchObserver"
     },
     "view": {
-        "directory": "departments"
+        "directory": "branches"
     },
     "routes": {
-        "list": "departments",
-        "create": "department/create",
-        "edit": "department/edit",
-        "save": "department/save",
-        "update": "department/update",
-        "view": "department",
-        "delete": "department/delete"
+        "list": "branches",
+        "create": "branch/create",
+        "edit": "branch/edit",
+        "save": "branch/save",
+        "update": "branch/update",
+        "view": "branch",
+        "delete": "branch/delete"
     },
     "theme": "frest-admin"
 }
