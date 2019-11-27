@@ -55,7 +55,7 @@ class [CONTROLLER_NAME] extends Controller
     {
         $validatedData = $request->all();
 
-        $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->updateOrCreate($validatedData);
+        $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->createOrUpdate($validatedData);
 
         if(is_null($[MODEL_VARIABLE_NAME_SINGULAR]) === false){
             $message = message("Operation succeed.");
