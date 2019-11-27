@@ -7,6 +7,7 @@ use App\Services\MigrationMakerService;
 use App\Services\ModelMakerService;
 use App\Services\ServiceMakerService;
 use App\Services\BladeMakerService;
+use App\Services\PolicyMakerService;
 use App\Services\WebRouteMakerService;
 use Exception;
 use Illuminate\Console\Command;
@@ -78,6 +79,9 @@ class CodeGenerator extends Command
 
         $webRouteMaker = new WebRouteMakerService($argument);
         $webRouteMaker->make();
+
+        $policyMaker = new PolicyMakerService($argument);
+        $policyMaker->make();
 
         $this->info("DONE!");
     }
