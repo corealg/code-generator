@@ -22,7 +22,7 @@ class [POLICY_NAME]
         return false;
     }
 
-    public function index($user)
+    public function list($user)
     {
         return false;
     }
