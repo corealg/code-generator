@@ -72,12 +72,12 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="4">
+                                    <td colspan="2">
                                         @if(!empty($[MODEL_VARIABLE_NAME_PLURAL]->pagination_summary))
                                             <span class="label label-primary">{{ $[MODEL_VARIABLE_NAME_PLURAL]->pagination_summary }}</span>
                                         @endif
                                     </td>
-                                    <td colspan="4">
+                                    <td colspan="2">
                                         <div class="pull-right">{{ $[MODEL_VARIABLE_NAME_PLURAL]->links() }}</div>
                                     </td>
                                 </tr>
