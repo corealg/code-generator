@@ -22,38 +22,40 @@ class MigrationMakerService
     {
         $body_array = [];
 
-        foreach($this->configurations["migration"]["table"]["columns"] as $columnName => $property){
+        foreach ($this->configurations["migration"]["table"]["columns"] as $columnName => $property) {
 
             $length = "";
-            
-            if(!empty($property["length"])){
+
+            if (!empty($property["length"])) {
                 $length = ", {$property['length']}";
             }
 
-            $statement = '$'."table->{$property['type']}('{$columnName}'{$length})";
+            $statement = "
+            " . '$' . "table->{$property['type']}('{$columnName}'{$length})";
 
-            if(isset($property["nullable"]) && $property["nullable"] === true){
+            if (isset($property["nullable"]) && $property["nullable"] === true) {
                 $statement .= "->nullable()";
             }
 
-            if(isset($property["unique"]) && $property["unique"] === true){
+            if (isset($property["unique"]) && $property["unique"] === true) {
                 $statement .= "->unique()";
             }
 
-            if(!empty($property["default"])){
+            if (!empty($property["default"])) {
                 $statement .= "->default({$property['default']})";
             }
 
-            if(isset($property["index"]) && $property["index"] === true){
+            if (isset($property["index"]) && $property["index"] === true) {
                 $statement .= "->index()";
             }
 
             $statement .= ";";
 
+            // $body_array[] = str_replace("\n", "", $statement);
             $body_array[] = $statement;
         }
 
-        $BODY = implode("\n",$body_array);
+        $BODY = implode("", $body_array);
 
         $payload = [
             "[CLASS_NAME]" => "{$this->configurations['migration']['class_name']}",

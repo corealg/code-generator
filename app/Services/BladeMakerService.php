@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Storage;
 
-class ViewMakerService
+class BladeMakerService
 {
     protected $outputDirectory;
     protected $create_template;
@@ -31,10 +31,10 @@ class ViewMakerService
 
     public function make()
     {
-        // $this->makeCreateBlade();
-        // $this->makeEditBlade();
-        // $this->makeSingleViewBlade();
-        // $this->makeListBlade();
+        $this->makeCreateBlade();
+        $this->makeEditBlade();
+        $this->makeSingleViewBlade();
+        $this->makeListBlade();
         $this->makeFormBlade();
 
         return true;
@@ -47,6 +47,7 @@ class ViewMakerService
             "[LIST_ROUTE]" => $this->configurations["routes"]["list"],
             "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
             "[SAVE_ROUTE]" => $this->configurations["routes"]["save"],
+            "[MODEL_NAME]" => "{$this->configurations['model']['name']}"
         ];
 
         $search = array_keys($payload);
@@ -67,6 +68,7 @@ class ViewMakerService
             "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
             "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
             "[UPDATE_ROUTE]" => $this->configurations["routes"]["update"],
+            "[MODEL_NAME]" => "{$this->configurations['model']['name']}"
         ];
 
         $search = array_keys($payload);
@@ -85,6 +87,7 @@ class ViewMakerService
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
             "[LIST_ROUTE]" => $this->configurations["routes"]["list"],
             "[MODEL_VARIABLE_NAME_PLURAL]" => $this->configurations["model"]["variable_plural"],
+            "[MODEL_NAME]" => "{$this->configurations['model']['name']}"
         ];
 
         $search = array_keys($payload);
@@ -108,6 +111,7 @@ class ViewMakerService
             "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
             "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
             "[MODEL_VARIABLE_NAME_PLURAL]" => $this->configurations["model"]["variable_plural"],
+            "[MODEL_NAME]" => "{$this->configurations['model']['name']}"
         ];
 
         $search = array_keys($payload);
@@ -122,7 +126,7 @@ class ViewMakerService
 
     public function makeFormBlade()
     {
-        $element_array = [];
+        $elements_array = [];
 
         foreach ($this->configurations["migration"]["table"]["columns"] as $columnName => $property) {
 
@@ -130,30 +134,35 @@ class ViewMakerService
                 continue;
             }
 
-            try{
+            try {
                 $raw_element = file_get_contents(public_path("templates/views/{$this->theme}/components/{$property['html_element']}.text"));
-            }catch(\Exception $ex){
+            } catch (\Exception $ex) {
                 continue;
             }
 
-            $element_payload = [];
+            $label = ucwords(str_replace("_", " ", $columnName));
 
-            dd($raw_element, $columnName, $property);
+            $element_payload = [
+                "[ELEMENT_NAME]" => $columnName,
+                "[LABEL]" => $label,
+                "[PLACEHOLDER]" => $label,
+            ];
 
+            if (empty($property["nullable"]) || $property["nullable"] === false) {
+                $element_payload["[VALIDATION_HINTS]"] = "<small class='validation-hints'>*</small>";
+            } else {
+                $element_payload["[VALIDATION_HINTS]"] = "";
+            }
+
+            $search = array_keys($element_payload);
+            $replace = array_values($element_payload);
+
+            $elements_array[] = str_replace($search, $replace, $raw_element);
         }
 
-        dd("HI");
-        $payload = [
-            "[FEATURE_NAME]" => $this->configurations["model"]["name"],
-            "[LIST_ROUTE]" => $this->configurations["routes"]["list"],
-            "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
-            "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
-        ];
+        $elements = implode("\n", $elements_array);
 
-        $search = array_keys($payload);
-        $replace = array_values($payload);
-
-        $output = str_replace($search, $replace, $this->form_template);
+        $output = str_replace("[ELEMENTS]", $elements, $this->form_template);
 
         Storage::put("{$this->outputDirectory}/{$this->configurations['view']['directory']}/form.blade.php", $output);
 

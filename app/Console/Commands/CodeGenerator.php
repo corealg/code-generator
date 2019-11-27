@@ -6,8 +6,9 @@ use App\Services\ControllerMakerService;
 use App\Services\MigrationMakerService;
 use App\Services\ModelMakerService;
 use App\Services\ServiceMakerService;
-use App\Services\ViewMakerService;
+use App\Services\BladeMakerService;
 use App\Services\WebRouteMakerService;
+use Exception;
 use Illuminate\Console\Command;
 
 class CodeGenerator extends Command
@@ -43,9 +44,14 @@ class CodeGenerator extends Command
      */
     public function handle()
     {
-        $configurationFileName = $this->argument("configurationFileName");
-        $configurationJson = file_get_contents(public_path("configurations/{$configurationFileName}"));
-        $configurationArray = json_decode($configurationJson, true);
+        try{
+            $configurationFileName = $this->argument("configurationFileName");
+            $configurationJson = file_get_contents(public_path("configurations/{$configurationFileName}"));
+            $configurationArray = json_decode($configurationJson, true);
+        }catch(Exception $ex){
+            $this->error($ex->getMessage());
+            return false;
+        }
 
         $now = now()->format("Y-m-d-His");
         $outputDirectory = "output/{$configurationFileName}-{$now}";
@@ -55,23 +61,23 @@ class CodeGenerator extends Command
             "configurations" => $configurationArray
         ];
 
-        // $migrationMaker = new MigrationMakerService($argument);
-        // $migrationMaker->make();
+        $migrationMaker = new MigrationMakerService($argument);
+        $migrationMaker->make();
 
-        // $serviceMaker = new ServiceMakerService($argument);
-        // $serviceMaker->make();
+        $serviceMaker = new ServiceMakerService($argument);
+        $serviceMaker->make();
 
-        // $modelMaker = new ModelMakerService($argument);
-        // $modelMaker->make();
+        $modelMaker = new ModelMakerService($argument);
+        $modelMaker->make();
 
-        // $controllerMaker = new ControllerMakerService($argument);
-        // $controllerMaker->make();
+        $controllerMaker = new ControllerMakerService($argument);
+        $controllerMaker->make();
 
-        $viewMaker = new ViewMakerService($argument);
-        $viewMaker->make();
+        $bladeMaker = new BladeMakerService($argument);
+        $bladeMaker->make();
 
-        // $webRouteMaker = new WebRouteMakerService($argument);
-        // $webRouteMaker->make();
+        $webRouteMaker = new WebRouteMakerService($argument);
+        $webRouteMaker->make();
 
         $this->info("DONE!");
     }

@@ -11,7 +11,15 @@
             <div class="card-header">
                 <h5 class="card-title">[FEATURE_NAME] List ({{ $[MODEL_VARIABLE_NAME_PLURAL]->count() }})</h5>
                 <div class="heading-elements">
-                    <a href="{{url('[CREATE_ROUTE]')}}" class="btn btn-danger mr-1 mb-1"><i class="bx bx-plus"></i> Create New</a>
+                    @can('create', \App\[MODEL_NAME]::class)
+                        <a href="{{url('[CREATE_ROUTE]')}}" class="btn btn-danger mr-1 mb-1">
+                            <i class="bx bx-plus-circle"></i> Create New
+                        </a>
+                    @else
+                        <a href="{{url('[CREATE_ROUTE]')}}" class="btn btn-danger mr-1 mb-1 disabled">
+                            <i class="bx bx-plus-circle"></i> Create New
+                        </a>
+                    @endcan
                 </div>
             </div>
             <div class="card-content">
@@ -20,25 +28,25 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Sl.</th>
+                                    <th width="5%" class="text-center">Sl.</th>
                                     <th>Id</th>
-                                    <th>Created At</th>
-                                    <th class="text-center">Action</th>
+                                    <th width="10%" class="text-center">Created At</th>
+                                    <th width="10%" class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php
-                                    $i = 1;
+                                    $i = 0;
                                 @endphp
                                 @forelse($[MODEL_VARIABLE_NAME_PLURAL] as $[MODEL_VARIABLE_NAME_SINGULAR])
                                 <tr>
-                                    <td>{{ $i }}</td>
+                                    <td class="text-center">{{ $i++ }}</td>
                                     <td>{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}</td>
-                                    <td>{{ Parser::parseDate($[MODEL_VARIABLE_NAME_SINGULAR]->created_at) }}</td>
+                                    <td class="text-center">{{ Parser::parseDate($[MODEL_VARIABLE_NAME_SINGULAR]->created_at) }}</td>
                                     <td class="text-center">
 
                                         @can('view', $[MODEL_VARIABLE_NAME_SINGULAR])
-                                            <a href="{{url('[VIEW_ROUTE]')}}/{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}" class="btn btn-icon btn-info glow mr-1 mb-1"><i class="bx bx-eye"></i></a>
+                                            <a href="{{url('[VIEW_ROUTE]')}}/{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}" class="btn btn-icon btn-info glow mr-1 mb-1"><i class="bx bx-show"></i></a>
                                         @else
                                             <a href="#" class="btn btn-icon btn-info glow mr-1 mb-1 disabled"><i class="bx bx-eye"></i></a>
                                         @endcan
@@ -56,9 +64,6 @@
                                         @endcan
                                     </td>
                                 </tr>
-                                @php
-                                    $i++;
-                                @endphp
                                 @empty
                                     <tr>
                                         <td colspan="4">No Records</td>
