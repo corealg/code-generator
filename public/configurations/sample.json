@@ -52,6 +52,14 @@
     "observer": {
         "name": "DepartmentObserver"
     },
+    "requestValidator": {
+        "create": {
+            "name": "Request"
+        },
+        "update": {
+            "name": "Request"
+        }
+    },
     "view": {
         "directory": "departments"
     },
