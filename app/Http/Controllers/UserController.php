@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use App\Http\Requests\Users\SaveFormRequest;
+use App\Http\Requests\Users\UpdateFormRequest;
+use Gate;
 
 class UserController extends Controller
 {
@@ -16,73 +20,101 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
+        if (Gate::denies('list', User::class)) {
+            return view("errors.403");
+        }
+
         $data = $request->all();
         $users = $this->userService->lists($data);
 
         $search = $request->search;
 
-        return view("users.index", compact(["users", "search"]));
+        return view("users.list", compact(["users", "search"]));
     }
 
-    public function create(Request $request)
+    public function create()
     {
+        if (Gate::denies('create', User::class)) {
+            return view("errors.403");
+        }
+
         return view("users.create");
     }
 
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
         $user = $this->userService->getById($id);
+
+        if (Gate::denies('edit', $user)) {
+            return view("errors.403");
+        }
+
         return view("users.edit", compact(["user"]));
     }
 
-    public function save(Request $request)
+    public function save(SaveFormRequest $request)
     {
-        $validatedData = $request->all();
+        if (Gate::denies('create', User::class)) {
+            return view("errors.403");
+        }
 
-        $user = $this->userService->createOrUpdate($validatedData);
+        $validatedData = $request->validated();
+
+        $user = $this->userService->updateOrCreate($validatedData);
 
         if(is_null($user) === false){
-            $message = message("Operation succeed.");
+            $message = message("User has been successfully created.");
         }else{
-            $message = message("Operation failed.", "error");
+            $message = message("User has not created.", "error");
         }
 
         session()->flash("message", $message);
         return redirect()->back();
     }
 
-    public function update(Request $request)
+    public function update(UpdateFormRequest $request)
     {
-        $validatedData = $request->all();
+        $validatedData = $request->validated();
 
-        $user = $this->userService->createOrUpdate($validatedData);
+        $user = $this->userService->updateOrCreate($validatedData);
 
         if(is_null($user) === false){
-            $message = message("Operation succeed.");
+            $message = message("User has been successfully updated.");
         }else{
-            $message = message("Operation failed.", "error");
+            $message = message("User has not updated.", "error");
         }
 
         session()->flash("message", $message);
         return redirect()->back();
     }
     
-    public function view(Request $request, $id)
+    public function view($id)
     {
         $user = $this->userService->getById($id);
+
+        if (Gate::denies('view', $user)) {
+            return view("errors.403");
+        }
+
         return view("users.view", compact(["user"]));
     }
 
-    public function delete(Request $request, $id)
+    public function delete(Request $request)
     {
+        $id = $request->id;
+
         $user = $this->userService->getById($id);
+
+        if (Gate::denies('delete', $user)) {
+            return view("errors.403");
+        }
 
         $response = $this->userService->delete($user);
         
         if($response === true){
-            $message = message("Operation succeed.");
+            $message = message("User has been successfully deleted.");
         }else{
-            $message = message("Operation failed.", "error");
+            $message = message("User has not deleted.", "error");
         }
 
         session()->flash("message", $message);

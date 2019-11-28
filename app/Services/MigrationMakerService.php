@@ -42,7 +42,7 @@ class MigrationMakerService
             }
 
             if (!empty($property["default"])) {
-                $statement .= "->default({$property['default']})";
+                $statement .= "->default('{$property['default']}')";
             }
 
             if (isset($property["index"]) && $property["index"] === true) {
