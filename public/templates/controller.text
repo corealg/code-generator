@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\[MODEL_NAME];
 use App\Services\[SERVICE_NAME];
 use Illuminate\Http\Request;
+use [SAVE_VALIDATOR_NAMESPACE];
+use [UPDATE_VALIDATOR_NAMESPACE];
 
 class [CONTROLLER_NAME] extends Controller
 {
