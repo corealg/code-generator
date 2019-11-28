@@ -91,6 +91,10 @@ class CodeGenerator extends Command
         $formRequestValidatorMakerService = new FormRequestValidatorMakerService($argument);
         $formRequestValidatorMakerService->make();
 
-        $this->info("DONE!");
+        $this->info(json_encode([
+            "status" => "success",
+            "message" => "DONE!",
+            "swag" => storage_path("app/{$outputDirectory}")
+        ]));
     }
 }
