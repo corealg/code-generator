@@ -1,10 +1,17 @@
 {
-    "name": "laravel/laravel",
+    "name": "Code Generator",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "This will generate code for fast development.",
     "keywords": [
         "framework",
         "laravel"
+    ],
+    "authors": [
+        {
+            "name": "Mizanur Rahman",
+            "email": "mizanur.rahman@smartwebsource.com",
+            "role": "Developer"
+        }
     ],
     "license": "MIT",
     "require": {
