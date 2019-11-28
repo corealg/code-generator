@@ -7,6 +7,7 @@ use App\Services\MigrationMakerService;
 use App\Services\ModelMakerService;
 use App\Services\ServiceMakerService;
 use App\Services\BladeMakerService;
+use App\Services\FormRequestValidatorMakerService;
 use App\Services\ObserverMakerService;
 use App\Services\PolicyMakerService;
 use App\Services\WebRouteMakerService;
@@ -86,6 +87,9 @@ class CodeGenerator extends Command
 
         $observerMaker = new ObserverMakerService($argument);
         $observerMaker->make();
+
+        $formRequestValidatorMakerService = new FormRequestValidatorMakerService($argument);
+        $formRequestValidatorMakerService->make();
 
         $this->info("DONE!");
     }

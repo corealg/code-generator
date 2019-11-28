@@ -63,6 +63,16 @@
     "view": {
         "directory": "branches"
     },
+    "validator": {
+        "save": {
+            "name": "SaveFormRequest",
+            "directory": "Branches"
+        },
+        "update": {
+            "name": "UpdateFormRequest",
+            "directory": "Branches"
+        }
+    },
     "routes": {
         "list": "branches",
         "create": "branch/create",
