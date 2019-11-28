@@ -29,7 +29,7 @@ class [CONTROLLER_NAME] extends Controller
         return view("[VIEW_DIRECTORY].list", compact(["[MODEL_VARIABLE_NAME_PLURAL]", "search"]));
     }
 
-    public function create(Request $request)
+    public function create()
     {
         if (Gate::denies('create', [MODEL_NAME]::class)) {
             return view("errors.403");
@@ -38,7 +38,7 @@ class [CONTROLLER_NAME] extends Controller
         return view("[VIEW_DIRECTORY].create");
     }
 
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
         $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->getById($id);
 
@@ -49,13 +49,13 @@ class [CONTROLLER_NAME] extends Controller
         return view("[VIEW_DIRECTORY].edit", compact(["[MODEL_VARIABLE_NAME_SINGULAR]"]));
     }
 
-    public function save([CREATE_FORM_REQUEST] $request)
+    public function save([SAVE_FORM_REQUEST] $request)
     {
         if (Gate::denies('create', [MODEL_NAME]::class)) {
             return view("errors.403");
         }
 
-        $validatedData = $request->all();
+        $validatedData = $request->validated();
 
         $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->updateOrCreate($validatedData);
 
@@ -71,7 +71,7 @@ class [CONTROLLER_NAME] extends Controller
 
     public function update([UPDATE_FORM_REQUEST] $request)
     {
-        $validatedData = $request->all();
+        $validatedData = $request->validated();
 
         $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->updateOrCreate($validatedData);
 
@@ -85,7 +85,7 @@ class [CONTROLLER_NAME] extends Controller
         return redirect()->back();
     }
     
-    public function view(Request $request, $id)
+    public function view($id)
     {
         $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->getById($id);
 
