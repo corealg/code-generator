@@ -13,11 +13,11 @@
                     <h5 class="card-title">Edit [FEATURE_NAME]: ??</h5>
                     <div class="heading-elements">
                         @can('list', \App\[MODEL_NAME]::class)
-                            <a href="{{url('[LIST_ROUTE]')}}" class="btn btn-light-secondary mr-1 mb-1">
+                            <a href="{{url('[LIST_ROUTE]')}}" class="btn btn-light mr-1 mb-1">
                                 <i class="bx bx-left-arrow-alt"></i> Back to list
                             </a>
                         @else
-                            <a href="#" class="btn btn-light-secondary mr-1 mb-1 disabled">
+                            <a href="#" class="btn btn-light mr-1 mb-1 disabled">
                                 <i class="bx bx-left-arrow-alt"></i> Back to list
                             </a>
                         @endcan
@@ -31,11 +31,11 @@
                             {!! Form::hidden('id') !!}
                             <button type="submit" class="btn btn-primary mr-1 mb-1"><i class="bx bxs-save"></i> Update</button>
                             @can('list', \App\[MODEL_NAME]::class)
-                                <a href="{{url('[LIST_ROUTE]')}}" class="btn btn-light-secondary mr-1 mb-1">
+                                <a href="{{url('[LIST_ROUTE]')}}" class="btn btn-light mr-1 mb-1">
                                     <i class="bx bx-left-arrow-alt"></i> Back to list
                                 </a>
                             @else
-                                <a href="#" class="btn btn-light-secondary mr-1 mb-1 disabled">
+                                <a href="#" class="btn btn-light mr-1 mb-1 disabled">
                                     <i class="bx bx-left-arrow-alt"></i> Back to list
                                 </a>
                             @endcan
