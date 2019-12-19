@@ -16,7 +16,7 @@
                             <i class="bx bx-plus-circle"></i> Create New
                         </a>
                     @else
-                        <a href="{{url('[CREATE_ROUTE]')}}" class="btn btn-danger mr-1 mb-1 disabled">
+                        <a href="#" class="btn btn-danger mr-1 mb-1 disabled">
                             <i class="bx bx-plus-circle"></i> Create New
                         </a>
                     @endcan

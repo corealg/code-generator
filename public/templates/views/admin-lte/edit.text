@@ -1,0 +1,33 @@
+@extends('layouts.master', ["page_title"=>"[FEATURE_NAME]", "page_header"=>"[FEATURE_NAME]", "page_detail"=>"Here is little detail..."])
+
+@section('content')
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Edit [FEATURE_NAME]: #{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}</h3>
+
+            <div class="box-tools pull-right">
+                @can("list", App\[MODEL_NAME]::class)
+                    <a href="{{ url('[LIST_ROUTE]') }}" class="btn btn-xs btn-default"><i class="fa fa-arrow-left"></i> Back to list</a>
+                @else
+                    <a href="#" class="btn btn-xs btn-default disabled"><i class="fa fa-arrow-left"></i> Back to list</a>
+                @endcan
+            </div>
+        </div>
+
+        {!! Form::model($[MODEL_VARIABLE_NAME_SINGULAR], ["url"=>"[UPDATE_ROUTE]"]) !!}
+            <div class="box-body">
+                @include("[VIEW_DIRECTORY].form")
+            </div><!-- /.box-body -->
+
+            <div class="box-footer">
+                <button type="submit" title="Update [MODEL_NAME]" class="btn btn-md btn-primary"><i class="fa fa-save"></i> Update</button>
+    
+                @can("list", App\[MODEL_NAME]::class)
+                    <a href="{{ url('[LIST_ROUTE]') }}" title="Back to [MODEL_NAME] list" class="btn btn-md btn-default"><i class="fa fa-arrow-left"></i> Back to list</a>
+                @else
+                    <a href="#" title="Back to [MODEL_NAME] list" class="btn btn-md btn-default disabled"><i class="fa fa-arrow-left"></i> Back to list</a>
+                @endcan
+            </div><!-- /.box-footer-->
+        {!! Form::close() !!}
+    </div><!-- /.box -->
+@endsection
