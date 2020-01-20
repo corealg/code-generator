@@ -43,7 +43,7 @@ class FormRequestValidatorMakerService
             }
 
             $rule = "
-            '{$columnName}'=>'";
+            '{$columnName}' => '";
 
             if (isset($property["nullable"]) && $property["nullable"] === true) {
                 $rule .= "nullable";
@@ -93,7 +93,9 @@ class FormRequestValidatorMakerService
 
     private function makeUpdateValidator()
     {
-        $body_array = [];
+        $body_array = [
+            "id" => "'id' => 'nullable'"
+        ];
 
         foreach ($this->configurations["migration"]["table"]["columns"] as $columnName => $property) {
 
@@ -102,7 +104,7 @@ class FormRequestValidatorMakerService
             }
 
             $rule = "
-            '{$columnName}'=>'";
+            '{$columnName}' => '";
 
             if (isset($property["nullable"]) && $property["nullable"] === true) {
                 $rule .= "nullable";
