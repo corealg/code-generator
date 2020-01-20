@@ -66,17 +66,19 @@ class FormRequestValidatorMakerService
 
         $BODY = implode(",\n", $body_array);
 
+        $namespace = $this->namespace;
+
         $directory = "";
         if (!empty($this->configurations['validator']['save']['directory'])) {
             $dirName = ucfirst($this->configurations['validator']['save']['directory']);
-            $this->namespace .= "\\{$dirName}";
+            $namespace .= "\\{$dirName}";
             $directory = "{$dirName}/";
         }
 
         $payload = [
             "[CLASS_NAME]" => $this->configurations["validator"]["save"]["name"],
             "[BODY]" => $BODY,
-            "[NAMESPACE]" => $this->namespace
+            "[NAMESPACE]" => $namespace
         ];
 
         $search = array_keys($payload);
@@ -123,17 +125,19 @@ class FormRequestValidatorMakerService
 
         $BODY = implode(",\n", $body_array);
 
+        $namespace = $this->namespace;
+
         $directory = "";
         if (!empty($this->configurations['validator']['update']['directory'])) {
             $dirName = ucfirst($this->configurations['validator']['update']['directory']);
-            $this->namespace .= "\\{$dirName}";
+            $namespace .= "\\{$dirName}";
             $directory = "{$dirName}/";
         }
 
         $payload = [
             "[CLASS_NAME]" => $this->configurations["validator"]["update"]["name"],
             "[BODY]" => $BODY,
-            "[NAMESPACE]" => $this->namespace
+            "[NAMESPACE]" => $namespace
         ];
 
         $search = array_keys($payload);
