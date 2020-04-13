@@ -44,9 +44,8 @@ class BladeMakerService
     {
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
-            "[LIST_ROUTE]" => $this->configurations["routes"]["list"],
+            "[ROUTE_NAME]" => $this->configurations["route"]["name"],
             "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
-            "[SAVE_ROUTE]" => $this->configurations["routes"]["save"],
             "[MODEL_NAME]" => "{$this->configurations['model']['name']}"
         ];
 
@@ -64,10 +63,9 @@ class BladeMakerService
     {
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
-            "[LIST_ROUTE]" => $this->configurations["routes"]["list"],
+            "[ROUTE_NAME]" => $this->configurations["route"]["name"],
             "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
             "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
-            "[UPDATE_ROUTE]" => $this->configurations["routes"]["update"],
             "[MODEL_NAME]" => "{$this->configurations['model']['name']}"
         ];
 
@@ -85,7 +83,7 @@ class BladeMakerService
     {
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
-            "[LIST_ROUTE]" => $this->configurations["routes"]["list"],
+            "[ROUTE_NAME]" => $this->configurations["route"]["name"],
             "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
             "[MODEL_NAME]" => "{$this->configurations['model']['name']}"
         ];
@@ -104,10 +102,7 @@ class BladeMakerService
     {
         $payload = [
             "[FEATURE_NAME]" => $this->configurations["model"]["name"],
-            "[CREATE_ROUTE]" => $this->configurations["routes"]["create"],
-            "[EDIT_ROUTE]" => $this->configurations["routes"]["edit"],
-            "[VIEW_ROUTE]" => $this->configurations["routes"]["view"],
-            "[DELETE_ROUTE]" => $this->configurations["routes"]["delete"],
+            "[ROUTE_NAME]" => $this->configurations["route"]["name"],
             "[VIEW_DIRECTORY]" => $this->configurations["view"]["directory"],
             "[MODEL_VARIABLE_NAME_SINGULAR]" => $this->configurations["model"]["variable_singular"],
             "[MODEL_VARIABLE_NAME_PLURAL]" => $this->configurations["model"]["variable_plural"],
