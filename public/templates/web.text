@@ -1,10 +1,4 @@
 <?php
 
 // [FEATURE_NAME] Routes
-Route::any("[LIST_ROUTE]", "[CONTROLLER_NAME]@index");
-Route::get("[CREATE_ROUTE]", "[CONTROLLER_NAME]@create");
-Route::post("[SAVE_ROUTE]", "[CONTROLLER_NAME]@save");
-Route::post("[UPDATE_ROUTE]", "[CONTROLLER_NAME]@update");
-Route::post("[DELETE_ROUTE]", "[CONTROLLER_NAME]@delete");
-Route::get("[EDIT_ROUTE]/{id}", "[CONTROLLER_NAME]@edit");
-Route::get("[VIEW_ROUTE]/{id}", "[CONTROLLER_NAME]@view");
+Route::resource("[ROUTE_NAME]", "[CONTROLLER_NAME]");
