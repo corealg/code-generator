@@ -7,7 +7,6 @@ use App\Services\[SERVICE_NAME];
 use Illuminate\Http\Request;
 use [SAVE_VALIDATOR_NAMESPACE];
 use [UPDATE_VALIDATOR_NAMESPACE];
-use Gate;
 
 class [CONTROLLER_NAME] extends Controller
 {
@@ -20,9 +19,7 @@ class [CONTROLLER_NAME] extends Controller
 
     public function index(Request $request)
     {
-        if (Gate::denies('list', [MODEL_NAME]::class)) {
-            return view("errors.403");
-        }
+        $this->authorize('list', [MODEL_NAME]::class);
 
         $data = $request->all();
         $[MODEL_VARIABLE_NAME_PLURAL] = $this->[SERVICE_VARIABLE_NAME]->lists($data);
@@ -34,29 +31,21 @@ class [CONTROLLER_NAME] extends Controller
 
     public function create()
     {
-        if (Gate::denies('create', [MODEL_NAME]::class)) {
-            return view("errors.403");
-        }
+        $this->authorize('create', [MODEL_NAME]::class);
 
         return view("[VIEW_DIRECTORY].create");
     }
 
-    public function edit($id)
+    public function edit([MODEL_NAME] $[MODEL_VARIABLE_NAME_SINGULAR])
     {
-        $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->getById($id);
-
-        if (Gate::denies('edit', $[MODEL_VARIABLE_NAME_SINGULAR])) {
-            return view("errors.403");
-        }
+        $this->authorize('edit', $[MODEL_VARIABLE_NAME_SINGULAR]);
 
         return view("[VIEW_DIRECTORY].edit", compact(["[MODEL_VARIABLE_NAME_SINGULAR]"]));
     }
 
-    public function save([SAVE_FORM_REQUEST] $request)
+    public function store([SAVE_FORM_REQUEST] $request)
     {
-        if (Gate::denies('create', [MODEL_NAME]::class)) {
-            return view("errors.403");
-        }
+        $this->authorize('create', [MODEL_NAME]::class);
 
         $validatedData = $request->validated();
 
@@ -72,8 +61,10 @@ class [CONTROLLER_NAME] extends Controller
         return redirect()->back();
     }
 
-    public function update([UPDATE_FORM_REQUEST] $request)
+    public function update([UPDATE_FORM_REQUEST] $request, [MODEL_NAME] $[MODEL_VARIABLE_NAME_SINGULAR])
     {
+        $this->authorize('edit', $[MODEL_VARIABLE_NAME_SINGULAR]);
+
         $validatedData = $request->validated();
 
         $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->updateOrCreate($validatedData);
@@ -88,34 +79,20 @@ class [CONTROLLER_NAME] extends Controller
         return redirect()->back();
     }
     
-    public function view($id)
+    public function show([MODEL_NAME] $[MODEL_VARIABLE_NAME_SINGULAR])
     {
-        $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->getById($id);
-
-        if (Gate::denies('view', $[MODEL_VARIABLE_NAME_SINGULAR])) {
-            return view("errors.403");
-        }
+        $this->authorize('show', $[MODEL_VARIABLE_NAME_SINGULAR]);
 
         return view("[VIEW_DIRECTORY].view", compact(["[MODEL_VARIABLE_NAME_SINGULAR]"]));
     }
 
-    public function delete(Request $request)
+    public function destroy([MODEL_NAME] $[MODEL_VARIABLE_NAME_SINGULAR])
     {
-        $id = $request->id;
+        $this->authorize('delete', $[MODEL_VARIABLE_NAME_SINGULAR]);
 
-        $[MODEL_VARIABLE_NAME_SINGULAR] = $this->[SERVICE_VARIABLE_NAME]->getById($id);
-
-        if (Gate::denies('delete', $[MODEL_VARIABLE_NAME_SINGULAR])) {
-            return view("errors.403");
-        }
-
-        $response = $this->[SERVICE_VARIABLE_NAME]->delete($[MODEL_VARIABLE_NAME_SINGULAR]);
+        $[MODEL_VARIABLE_NAME_SINGULAR]->delete();
         
-        if($response === true){
-            $message = message("[MODEL_NAME] has been successfully deleted.");
-        }else{
-            $message = message("[MODEL_NAME] has not deleted.", "error");
-        }
+        $message = message("[MODEL_NAME] has been successfully deleted.");
 
         session()->flash("message", $message);
         return redirect()->back();
