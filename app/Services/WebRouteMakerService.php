@@ -23,13 +23,7 @@ class WebRouteMakerService
     {
         $payload = [
             "[FEATURE_NAME]" => "{$this->configurations['model']['name']}",
-            "[LIST_ROUTE]" => "{$this->configurations['routes']['list']}",
-            "[CREATE_ROUTE]" => "{$this->configurations['routes']['create']}",
-            "[EDIT_ROUTE]" => "{$this->configurations['routes']['edit']}",
-            "[SAVE_ROUTE]" => "{$this->configurations['routes']['save']}",
-            "[UPDATE_ROUTE]" => "{$this->configurations['routes']['update']}",
-            "[DELETE_ROUTE]" => "{$this->configurations['routes']['delete']}",
-            "[VIEW_ROUTE]" => "{$this->configurations['routes']['view']}",
+            "[ROUTE_NAME]" => "{$this->configurations['route']['name']}",
             "[CONTROLLER_NAME]" => "{$this->configurations['controller']['name']}",
         ];
 
