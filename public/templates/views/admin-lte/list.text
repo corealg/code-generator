@@ -7,7 +7,7 @@
 
             <div class="box-tools pull-right">
                 @can("create", App\[MODEL_NAME]::class)
-                    <a href="{{ url('[CREATE_ROUTE]') }}" class="btn btn-xs btn-danger"><i class="fa fa-plus-circle"></i> Create New</a>
+                    <a href="{{ route('[ROUTE_NAME].create') }}" class="btn btn-xs btn-danger"><i class="fa fa-plus-circle"></i> Create New</a>
                 @else
                     <a href="#" class="btn btn-xs btn-danger disabled"><i class="fa fa-plus-circle"></i> Create New</a>
                 @endcan
@@ -17,42 +17,39 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th class="text-center" width="5%">SL</th>
                         <th class="text-left">ID</th>
                         <th width="10%" class="text-center">Created At</th>
                         <th class="text-center" width="10%">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @php $i = 1; @endphp
                     @forelse($[MODEL_VARIABLE_NAME_PLURAL] as $[MODEL_VARIABLE_NAME_SINGULAR])                  
                         <tr>
-                            <td class="text-center">{{ $i++ }}</td>
                             <td>{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}</td>
                             <td class="text-center">{{ Parser::parseDate($[MODEL_VARIABLE_NAME_SINGULAR]->created_at) }}</td>
                             <td class="text-center">
                                 @can("view", $[MODEL_VARIABLE_NAME_SINGULAR])
-                                    <a href="{{ url('user') }}/{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}" title="View [FEATURE_NAME]" class="btn btn-xs btn-info"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ route('[ROUTE_NAME].show', $[MODEL_VARIABLE_NAME_SINGULAR]) }}" title="View [FEATURE_NAME]" class="btn btn-xs btn-info"><i class="fa fa-eye"></i></a>
                                 @else
                                     <a href="#" title="View [FEATURE_NAME]" class="btn btn-xs btn-info disabled"><i class="fa fa-eye"></i></a>
                                 @endcan
 
                                 @can("edit", $[MODEL_VARIABLE_NAME_SINGULAR])
-                                    <a href="{{url('[EDIT_ROUTE]')}}/{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}" title="Edit [FEATURE_NAME]" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ route('[ROUTE_NAME].edit', $[MODEL_VARIABLE_NAME_SINGULAR]) }}" title="Edit [FEATURE_NAME]" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
                                 @else
                                     <a href="#" title="Edit [FEATURE_NAME]" class="btn btn-xs btn-primary disabled"><i class="fa fa-edit"></i></a>
                                 @endcan
 
                                 @can("delete", $[MODEL_VARIABLE_NAME_SINGULAR])
-                                    <a href="#" data-id="{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}" data-action="[DELETE_ROUTE]" data-message="Are you sure, You want to remove this [FEATURE_NAME]?" title="Delete [FEATURE_NAME]" class="btn btn-xs btn-danger alert-dialog"><i class="fa fa-trash-o"></i></a>
+                                    <a href="#" data-id="{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}" data-method="DELETE" data-action="{{ route('[ROUTE_NAME].destroy', $[MODEL_VARIABLE_NAME_SINGULAR]) }}" data-message="Are you sure, You want to delete this [FEATURE_NAME]?" title="Delete [FEATURE_NAME]" class="btn btn-xs btn-danger alert-dialog"><i class="fa fa-trash-o"></i></a>
                                 @else
-                                    <a href="#" title="Edit [FEATURE_NAME]" class="btn btn-xs btn-danger disabled"><i class="fa fa-trash-o"></i></a>
+                                    <a href="#" title="Delete [FEATURE_NAME]" class="btn btn-xs btn-danger disabled"><i class="fa fa-trash-o"></i></a>
                                 @endcan
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4">No data found.</td>
+                            <td colspan="3">No data found.</td>
                         </tr>
                     @endforelse
                 </tbody>

@@ -3,11 +3,11 @@
 @section('content')
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">View: #{{ $user->id }}</h3>
+            <h3 class="box-title">View: #{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}</h3>
 
             <div class="box-tools pull-right">
                 @can("list", App\[MODEL_NAME]::class)
-                    <a href="{{ url('[LIST_ROUTE]') }}" class="btn btn-xs btn-default"><i class="fa fa-arrow-left"></i> Back to list</a>
+                    <a href="{{ route('[ROUTE_NAME].index') }}" class="btn btn-xs btn-default"><i class="fa fa-arrow-left"></i> Back to list</a>
                 @else
                     <a href="#" class="btn btn-xs btn-default disabled"><i class="fa fa-arrow-left"></i> Back to list</a>
                 @endcan
@@ -20,13 +20,13 @@
 
         <div class="box-footer">
             @can("edit", $[MODEL_VARIABLE_NAME_SINGULAR])
-                <a href="{{url('[EDIT_ROUTE]')}}/{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}" title="Edit [FEATURE_NAME]" class="btn btn-md btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                <a href="{{ route('[ROUTE_NAME].edit', $[MODEL_VARIABLE_NAME_SINGULAR]) }}" title="Edit [FEATURE_NAME]" class="btn btn-md btn-primary"><i class="fa fa-edit"></i> Edit</a>
             @else
                 <a href="#" title="Edit [FEATURE_NAME]" class="btn btn-md btn-primary disabled"><i class="fa fa-edit"></i></a>
             @endcan
 
             @can("list", App\[MODEL_NAME]::class)
-                <a href="{{ url('[LIST_ROUTE]') }}" title="Back to [FEATURE_NAME] list" class="btn btn-md btn-default"><i class="fa fa-arrow-left"></i> Back to list</a>
+                <a href="{{ route('[ROUTE_NAME].index') }}" title="Back to [FEATURE_NAME] list" class="btn btn-md btn-default"><i class="fa fa-arrow-left"></i> Back to list</a>
             @else
                 <a href="#" title="Back to [FEATURE_NAME] list" class="btn btn-md btn-default disabled"><i class="fa fa-arrow-left"></i> Back to list</a>
             @endcan

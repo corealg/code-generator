@@ -7,14 +7,14 @@
 
             <div class="box-tools pull-right">
                 @can("list", App\[MODEL_NAME]::class)
-                    <a href="{{ url('[LIST_ROUTE]') }}" class="btn btn-xs btn-default"><i class="fa fa-arrow-left"></i> Back to list</a>
+                    <a href="{{ route('[ROUTE_NAME].index') }}" class="btn btn-xs btn-default"><i class="fa fa-arrow-left"></i> Back to list</a>
                 @else
                     <a href="#" class="btn btn-xs btn-default disabled"><i class="fa fa-arrow-left"></i> Back to list</a>
                 @endcan
             </div>
         </div>
 
-        {!! Form::open(["url"=>"[SAVE_ROUTE]"]) !!}
+        {!! Form::open(["url"=>route("[ROUTE_NAME].store")]) !!}
             <div class="box-body">
                 @include("[VIEW_DIRECTORY].form")
             </div><!-- /.box-body -->
@@ -23,7 +23,7 @@
                 <button type="submit" title="Save [MODEL_NAME]" class="btn btn-md btn-primary"><i class="fa fa-save"></i> Save</button>
     
                 @can("list", App\[MODEL_NAME]::class)
-                    <a href="{{ url('[LIST_ROUTE]') }}" title="Back to [MODEL_NAME] list" class="btn btn-md btn-default"><i class="fa fa-arrow-left"></i> Back to list</a>
+                    <a href="{{ route('[ROUTE_NAME].index') }}" title="Back to [MODEL_NAME] list" class="btn btn-md btn-default"><i class="fa fa-arrow-left"></i> Back to list</a>
                 @else
                     <a href="#" title="Back to [MODEL_NAME] list" class="btn btn-md btn-default disabled"><i class="fa fa-arrow-left"></i> Back to list</a>
                 @endcan
