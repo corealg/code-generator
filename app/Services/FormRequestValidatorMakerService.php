@@ -93,9 +93,7 @@ class FormRequestValidatorMakerService
 
     private function makeUpdateValidator()
     {
-        $body_array = [
-            "id" => "'id' => 'nullable'"
-        ];
+        $body_array = [];
 
         foreach ($this->configurations["migration"]["table"]["columns"] as $columnName => $property) {
 
