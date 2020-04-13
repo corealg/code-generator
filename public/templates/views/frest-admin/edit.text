@@ -13,7 +13,7 @@
                     <h5 class="card-title">Edit [FEATURE_NAME]: ??</h5>
                     <div class="heading-elements">
                         @can('list', \App\[MODEL_NAME]::class)
-                            <a href="{{url('[LIST_ROUTE]')}}" class="btn btn-light mr-1 mb-1">
+                            <a href="{{ route('[ROUTE_NAME].index') }}" class="btn btn-light mr-1 mb-1">
                                 <i class="bx bx-left-arrow-alt"></i> Back to list
                             </a>
                         @else
@@ -25,13 +25,14 @@
                 </div>
                 <div class="card-content">
                     <div class="card-body">
-                        {!! Form::model($[MODEL_VARIABLE_NAME_SINGULAR], ['url' => '[UPDATE_ROUTE]']) !!}
+                        {!! Form::model($[MODEL_VARIABLE_NAME_SINGULAR], ['url' => route('[ROUTE_NAME].update', $[MODEL_VARIABLE_NAME_SINGULAR])]) !!}
+                            @method("PUT")
+
                             @include('[VIEW_DIRECTORY].form')
-                                
-                            {!! Form::hidden('id') !!}
+
                             <button type="submit" class="btn btn-primary mr-1 mb-1"><i class="bx bxs-save"></i> Update</button>
                             @can('list', \App\[MODEL_NAME]::class)
-                                <a href="{{url('[LIST_ROUTE]')}}" class="btn btn-light mr-1 mb-1">
+                                <a href="{{ route('[ROUTE_NAME].index') }}" class="btn btn-light mr-1 mb-1">
                                     <i class="bx bx-left-arrow-alt"></i> Back to list
                                 </a>
                             @else

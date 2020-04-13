@@ -9,10 +9,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title">[FEATURE_NAME] List ({{ $[MODEL_VARIABLE_NAME_PLURAL]->count() }})</h5>
+                <h5 class="card-title">[FEATURE_NAME] List ({{ $[MODEL_VARIABLE_NAME_PLURAL]->total() }})</h5>
                 <div class="heading-elements">
                     @can('create', \App\[MODEL_NAME]::class)
-                        <a href="{{url('[CREATE_ROUTE]')}}" class="btn btn-danger mr-1 mb-1">
+                        <a href="{{ route('[ROUTE_NAME].create') }}" class="btn btn-danger mr-1 mb-1">
                             <i class="bx bx-plus-circle"></i> Create New
                         </a>
                     @else
@@ -28,37 +28,32 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th width="5%" class="text-center">Sl.</th>
                                     <th>Id</th>
                                     <th width="10%" class="text-center">Created At</th>
                                     <th width="10%" class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                    $i = 1;
-                                @endphp
                                 @forelse($[MODEL_VARIABLE_NAME_PLURAL] as $[MODEL_VARIABLE_NAME_SINGULAR])
                                 <tr>
-                                    <td class="text-center">{{ $i++ }}</td>
                                     <td>{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}</td>
                                     <td class="text-center">{{ Parser::parseDate($[MODEL_VARIABLE_NAME_SINGULAR]->created_at) }}</td>
                                     <td class="text-center">
 
                                         @can('view', $[MODEL_VARIABLE_NAME_SINGULAR])
-                                            <a href="{{url('[VIEW_ROUTE]')}}/{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}" class="btn btn-icon btn-info glow mr-1 mb-1"><i class="bx bx-show"></i></a>
+                                            <a href="{{ route('[ROUTE_NAME].show', $[MODEL_VARIABLE_NAME_SINGULAR]) }}" class="btn btn-icon btn-info glow mr-1 mb-1"><i class="bx bx-show"></i></a>
                                         @else
                                             <a href="#" class="btn btn-icon btn-info glow mr-1 mb-1 disabled"><i class="bx bx-eye"></i></a>
                                         @endcan
 
                                         @can('edit', $[MODEL_VARIABLE_NAME_SINGULAR])
-                                            <a href="{{url('[EDIT_ROUTE]')}}/{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}" class="btn btn-icon btn-success glow mr-1 mb-1"><i class="bx bx-edit-alt"></i></a>
+                                            <a href="{{ route('[ROUTE_NAME].edit', $[MODEL_VARIABLE_NAME_SINGULAR]) }}" class="btn btn-icon btn-success glow mr-1 mb-1"><i class="bx bx-edit-alt"></i></a>
                                         @else
                                             <a href="#" class="btn btn-icon btn-success glow mr-1 mb-1 disabled"><i class="bx bx-edit-alt"></i></a>
                                         @endcan
 
                                         @can('delete', $[MODEL_VARIABLE_NAME_SINGULAR])
-                                            <a href="#" class="btn btn-icon btn-danger alert-dialog glow mr-1 mb-1" data-id="{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}" data-action="[DELETE_ROUTE]" data-message="Are you sure, You want to remove this [FEATURE_NAME]?"><i class="bx bx-trash-alt"></i></a>
+                                            <a href="#" class="btn btn-icon btn-danger alert-dialog glow mr-1 mb-1" data-id="{{ $[MODEL_VARIABLE_NAME_SINGULAR]->id }}" data-method="DELETE" data-action="{{ route('[ROUTE_NAME].destroy', $[MODEL_VARIABLE_NAME_SINGULAR]) }}" data-message="Are you sure, You want to delete this [FEATURE_NAME]?"><i class="bx bx-trash-alt"></i></a>
                                         @else
                                             <a href="#" class="btn btn-icon btn-danger glow mr-1 mb-1 disabled"><i class="bx bx-trash-alt"></i></a>
                                         @endcan
@@ -66,13 +61,13 @@
                                 </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4">No Records</td>
+                                        <td colspan="3">No Records</td>
                                     </tr>
                                 @endforelse
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="2">
+                                    <td>
                                         @if(!empty($[MODEL_VARIABLE_NAME_PLURAL]->pagination_summary))
                                             <span class="label label-primary">{{ $[MODEL_VARIABLE_NAME_PLURAL]->pagination_summary }}</span>
                                         @endif

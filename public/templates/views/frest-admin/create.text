@@ -13,7 +13,7 @@
                     <h5 class="card-title">Create [FEATURE_NAME]</h5>
                     <div class="heading-elements">
                         @can('list', \App\[MODEL_NAME]::class)
-                            <a href="{{url('[LIST_ROUTE]')}}" class="btn btn-light mr-1 mb-1">
+                            <a href="{{ route('[ROUTE_NAME].index') }}" class="btn btn-light mr-1 mb-1">
                                 <i class="bx bx-left-arrow-alt"></i> Back to list
                             </a>
                         @else
@@ -25,12 +25,12 @@
                 </div>
                 <div class="card-content">
                     <div class="card-body">
-                        {!! Form::open(['url' => '[SAVE_ROUTE]']) !!}
+                        {!! Form::open(['url' => route("[ROUTE_NAME].store")]) !!}
                             @include('[VIEW_DIRECTORY].form')
                                 
                             <button type="submit" class="btn btn-primary mr-1 mb-1"><i class="bx bxs-save"></i> Save</button>
                             @can('list', \App\[MODEL_NAME]::class)
-                                <a href="{{url('[LIST_ROUTE]')}}" class="btn btn-light mr-1 mb-1">
+                                <a href="{{ route('[ROUTE_NAME].index') }}" class="btn btn-light mr-1 mb-1">
                                     <i class="bx bx-left-arrow-alt"></i> Back to list
                                 </a>
                             @else
