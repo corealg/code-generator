@@ -61,26 +61,20 @@
         "name": "BranchObserver"
     },
     "view": {
-        "directory": "branches"
+        "directory": "branch"
     },
     "validator": {
         "save": {
             "name": "SaveFormRequest",
-            "directory": "Branches"
+            "directory": "Branch"
         },
         "update": {
             "name": "UpdateFormRequest",
-            "directory": "Branches"
+            "directory": "Branch"
         }
     },
-    "routes": {
-        "list": "branches",
-        "create": "branch/create",
-        "edit": "branch/edit",
-        "save": "branch/save",
-        "update": "branch/update",
-        "view": "branch",
-        "delete": "branch/delete"
+    "route": {
+        "name": "branches"
     },
     "theme": "frest-admin"
 }
