@@ -1,5 +1,5 @@
 {
-    "name": "Code Generator",
+    "name": "corealg/code-generator",
     "type": "project",
     "description": "This will generate code for fast development.",
     "keywords": [
@@ -9,7 +9,7 @@
     "authors": [
         {
             "name": "Mizanur Rahman",
-            "email": "mizanur.rahman@smartwebsource.com",
+            "email": "mizan3008@gmil.com",
             "role": "Developer"
         }
     ],

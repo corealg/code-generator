@@ -16,3 +16,4 @@ storage/app/output/*
 
 public/configurations/*
 !public/configurations/sample.json
+docker/database_data_dir/*
