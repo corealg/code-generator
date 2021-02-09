@@ -96,5 +96,7 @@ class CodeGenerator extends Command
             "message" => "DONE!",
             "swag" => storage_path("app/{$outputDirectory}")
         ]));
+
+        return 0;
     }
 }
