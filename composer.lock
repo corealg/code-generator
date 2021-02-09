@@ -411,11 +411,6 @@
         {
             "name": "jakub-onderka/php-console-color",
             "version": "v0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/JakubOnderka/PHP-Console-Color.git",
-                "reference": "d5deaecff52a0d61ccb613bb3804088da0307191"
-            },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/JakubOnderka/PHP-Console-Color/zipball/d5deaecff52a0d61ccb613bb3804088da0307191",
@@ -448,10 +443,13 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+<<<<<<< HEAD
             "support": {
                 "issues": "https://github.com/JakubOnderka/PHP-Console-Color/issues",
                 "source": "https://github.com/JakubOnderka/PHP-Console-Color/tree/master"
             },
+=======
+>>>>>>> a282124c7657bcd39dd999815923b99c08b4285f
             "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
